@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Login.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserId } from "../store/userSlice";
+import { setUser } from "../store/userSlice";
 import { RootState } from "../store/store";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Login: React.FC = () => {
+  let navigate = useNavigate();
+  const {id: userId} = useSelector((state: RootState) => state.user.user);
+  console.log(userId);
+  useEffect(() => {
+    if (userId) {
+      navigate("/");
+    }
+  }, [userId, navigate]);
+  const [_, setCookie] = useCookies<"userId", CookieValues>(["userId"]);
   const dispatch = useDispatch();
 
   const [loginEmail, setLoginEmail] = useState("");
@@ -25,9 +36,10 @@ const Login: React.FC = () => {
         email: loginEmail,
         password: loginPassword,
       });
-      setLoginMessage(response.data.message); //axios
-      // Handle successful login (e.g., redirect or show a success message)
-      dispatch(setUserId(response.data.userId)); // Dispatch user ID to Redux store
+      setLoginMessage(response.data.message);
+      dispatch(setUser(response.data.user)); // Dispatch user to Redux store
+      setCookie("userId", response.data.user.id);
+      navigate("/");
     } catch (error: any) {
       // Handle error
       setLoginMessage(error.response.data.error);
@@ -44,18 +56,17 @@ const Login: React.FC = () => {
         displayName,
       });
       setSignUpMessage(response.data.message);
-      // Handle successful sign-up (e.g., redirect or show a success message)
+      setIsLoginForm(true);
     } catch (error: any) {
       setSignUpMessage(error.response.data.error);
       // Handle error
     }
   };
-  const userId = useSelector((state: RootState) => state.user.userId);
 
   return (
     <div className="auth-component">
       <div>User ID: {userId}</div>
-      <div className={`auth-container ${isLoginForm ? "signup-form" : ""}`}>
+      <div className={`auth-container ${isLoginForm ? "" : "signup-form"}`}>
         <form onSubmit={handleLogin} className="form sign-in">
           <label>
             <span>Email</span>

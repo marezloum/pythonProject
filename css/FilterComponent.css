@@ -1,0 +1,307 @@
+@charset "UTF-8";
+.filter {
+  display: none;
+  padding: 20px 60px;
+  background-color: #043c5f;
+  width: 90%;
+  min-width: 300px;
+  max-width: 900px;
+  border-radius: 8px;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.filter.show {
+  display: flex;
+}
+.filter .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.filter .row.first {
+  justify-content: space-between;
+}
+.filter .row.first .search-bar {
+  width: 60%;
+  min-width: 200px;
+  position: relative;
+}
+.filter .row.first .search-bar > input {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  height: 35px;
+  padding: 0 10px;
+}
+.filter .row.first .search-bar > button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  border-radius: 0 4px 4px 0;
+  align-items: center;
+  background-color: #f0763e;
+  justify-content: center;
+  color: white;
+}
+.filter .row.first .filters {
+  display: flex;
+}
+.filter .row.first .filters > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filter .row.first .filters > div:first-child {
+  margin-right: 8px;
+}
+.filter .row.first .filters > div > .title {
+  margin-right: 8px;
+}
+.filter .row.first .filters > div .switchCtrl {
+  margin: 0 4px 0 0;
+  padding: 0;
+  height: 18px;
+  cursor: pointer;
+}
+.filter .row.first .filters > div .switchCtrl.right-side {
+  float: right;
+}
+.filter .row.first .filters > div .switchCtrl.right-side + label.title {
+  float: right;
+}
+.filter .row.first .filters > div .switchCtrl + label.title {
+  font-weight: normal;
+  display: inline-block;
+  margin: 0;
+}
+.filter .row.first .filters > div .switchCtrl + label.title::after {
+  content: " ";
+  white-space: pre;
+}
+.filter .row.first .filters > div .switchCtrl + label.title::before {
+  content: " ";
+  white-space: pre;
+}
+.filter .row.first .filters > div .switchCtrl input {
+  display: none;
+}
+.filter .row.first .filters > div .switchCtrl input:checked + .toggle::before {
+  background-color: #f0763e;
+}
+.filter .row.first .filters > div .switchCtrl input:checked + .toggle::after {
+  transform: translateX(20px);
+  background-color: #f0763e;
+}
+.filter .row.first .filters > div .switchCtrl .toggle {
+  position: relative;
+  border-radius: 3px;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  overflow: hidden;
+  vertical-align: top;
+}
+.filter .row.first .filters > div .switchCtrl .toggle::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  display: inline-block;
+  transition: 0.3s ease-in-out;
+  box-sizing: border-box;
+  border: 3px solid white;
+  background-color: #1195ad;
+}
+.filter .row.first .filters > div .switchCtrl .toggle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: #1195ad;
+  display: inline-block;
+  transition: 0.3s;
+}
+.filter .row.first .filters > div .switchCtrl.rounded .toggle {
+  border-radius: 10px;
+}
+.filter .row.first .filters > div .switchCtrl.rounded .toggle::after {
+  border-radius: 50%;
+}
+.filter .row.first .filters > div .switchCtrl.rounded .toggle::before {
+  border-radius: 10px;
+}
+.filter .row.second .alphabets {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+.filter .row.second .alphabets1,
+.filter .row.second .alphabets2,
+.filter .row.second .alphabets3 {
+  display: flex;
+  flex-wrap: wrap;
+  width: 33%;
+  max-width: 240px;
+}
+.filter .row.second .alphabet-label {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  cursor: pointer;
+  padding: 7px;
+  border: 2px solid #1195ad;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+.filter .row.second .alphabet-label:hover {
+  background-color: rgb(4, 60, 95);
+}
+.filter .row.second .alphabet-label.selected {
+  background-color: #f0763e;
+}
+.filter .row.second .alphabet-label .alphabet-checkbox {
+  margin-right: 5px;
+  display: none;
+}
+.filter .row.third {
+  margin-bottom: 20px;
+}
+.filter .row.third .options {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+.filter .row.third .styled-select {
+  display: flex;
+  flex-wrap: wrap;
+  width: 33%;
+  max-width: 240px;
+  background-color: #1195ad;
+  color: white;
+  border: 2px solid #043c5f;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  position: relative;
+}
+.filter .row.third .styled-select > option {
+  background-color: #1195ad;
+}
+.filter .row.third .styled-select::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  pointer-events: none;
+}
+.filter .row.third .styled-select:focus {
+  outline: none;
+  border-color: #00b3b3;
+}
+.filter .row.third .styled-select option[value=""] {
+  display: none;
+}
+.filter .wordList {
+  width: 100%;
+  color: white;
+  min-width: 300px;
+  background: #043c5f;
+  border-radius: 8px;
+  border: 2px solid #1195ad;
+  padding: 10px;
+}
+.filter .wordList ul {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.filter .wordList ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter .wordList ul li > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 24px;
+  font-size: 14px;
+}
+.filter .wordList ul li > span.likes {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+.filter .wordList ul li > span.likes svg {
+  color: #f0763e;
+  position: absolute;
+  font-size: 24px;
+  z-index: 1;
+}
+.filter .wordList ul li > span.likes span {
+  position: absolute;
+  top: 0px;
+  left: 9px;
+  color: white;
+  z-index: 2;
+  font-size: 12px;
+}
+.filter .wordList ul li > span.translate {
+  width: 35%;
+  padding: 0 10px;
+  min-width: 200px;
+}
+.filter .wordList ul li > span.dictionary {
+  width: calc(45% - 16px);
+  min-width: 260px;
+  padding: 0 10px;
+}
+.filter .wordList ul li a {
+  width: 15%;
+  padding: 0 10px;
+  min-width: 100px;
+  font-size: 14px;
+}
+.filter .wordList ul li a.title {
+  color: white;
+}
+.filter .wordList.show {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .search_filter .filter .row.first .search-bar {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .search_filter .filter .row.first .search-bar > button {
+    width: 60px;
+  }
+  .search_filter .filter .row.first .filters {
+    width: 100%;
+  }
+}

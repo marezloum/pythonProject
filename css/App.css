@@ -1,0 +1,38 @@
+@import url(https://fonts.googleapis.com/css?family=Robotos:700,500,300);
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+  list-style: none;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.orange {
+  color: #f0763e;
+}
+
+body {
+  background: #fffaf2;
+}
+body.isSearching {
+  cursor: progress;
+}
+body main {
+  height: calc(100% - 200px);
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1600px;
+}

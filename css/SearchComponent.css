@@ -1,0 +1,89 @@
+.search-component {
+  display: none;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.search-component input {
+  width: 60%;
+  min-width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  height: 35px;
+  padding: 0 10px;
+}
+.search-component .wordList {
+  position: absolute;
+  width: 60%;
+  min-width: 300px;
+  top: 40px;
+  background: #fffaf2;
+  border-radius: 0 0 8px 8px;
+  padding: 10px;
+}
+.search-component .wordList ul {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.search-component .wordList ul li {
+  margin-bottom: 20px;
+  display: flex;
+  color: #043c5f;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.search-component .wordList ul li > span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 24px;
+}
+.search-component .wordList ul li > span.likes {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+.search-component .wordList ul li > span.likes svg {
+  color: #f0763e;
+  position: absolute;
+  font-size: 24px;
+  z-index: 1;
+}
+.search-component .wordList ul li > span.likes span {
+  position: absolute;
+  top: 0px;
+  left: 9px;
+  color: white;
+  z-index: 2;
+  font-size: 12px;
+}
+.search-component .wordList ul li > span.translate {
+  width: 25%;
+  padding: 0 10px;
+  min-width: 200px;
+}
+.search-component .wordList ul li > span.category {
+  width: 20%;
+  padding: 0 10px;
+  min-width: 160px;
+}
+.search-component .wordList ul li > span.dictionary {
+  width: calc(30% - 16px);
+  min-width: 260px;
+  padding: 0 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.search-component .wordList ul li a {
+  width: 15%;
+  padding: 0 10px;
+  min-width: 100px;
+}
+.search-component .wordList.show {
+  display: block;
+}
+.search-component.show {
+  display: flex;
+}

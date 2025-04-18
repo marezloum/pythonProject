@@ -1,59 +1,92 @@
-/* src/components/SearchComponent.scss */
-
+@import "./variables.scss";
 .search-component {
-    background-color: #ffffff;
-    padding: 20px;
+  display: none;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: 60%;
+    min-width: 300px;
+    background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      margin-bottom: 10px;
-  
-      &:focus {
-        border-color: #007bff;
-        outline: none;
-      }
-    }
-  
-    button {
-      padding: 10px 15px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: #0056b3;
-      }
-  
-      &:disabled {
-        background-color: #ccc;
-      }
-    }
-  
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
-  
+    height: 35px;
+    padding: 0 10px;
+  }
+  .wordList {
+    position: absolute;
+    width: 60%;
+    min-width: 300px;
+    top: 40px;
+    background: #fffaf2;
+    border-radius: 0 0 8px 8px;
+    padding: 10px;
     ul {
-      list-style-type: none;
-      padding: 0;
-  
+      list-style: none;
+      max-height: 200px;
+      overflow-y: auto;
       li {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-  
-        &:last-child {
-          border-bottom: none;
+        margin-bottom: 20px;
+        display: flex;
+        color: #043c5f;
+        align-items: center;
+        flex-wrap: wrap;
+        > span {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          line-height: 24px;
+          &.likes {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            svg {
+              color: $switch-background-color-checked;
+              position: absolute;
+              font-size: 24px;
+              z-index: 1;
+            }
+            span {
+              position: absolute;
+              top: 0px;
+              left: 9px;
+              color: white;
+              z-index: 2;
+              font-size: 12px;
+            }
+          }
+          &.translate {
+            width: 25%;
+            padding: 0 10px;
+            min-width: 200px;
+          }
+          &.category {
+            width: 20%;
+            padding: 0 10px;
+            min-width: 160px;
+          }
+          &.dictionary {
+            width: calc(30% - 16px);
+            min-width: 260px;
+            padding: 0 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+        }
+        a {
+          width: 15%;
+          padding: 0 10px;
+          min-width: 100px;
+          &.title {
+          }
         }
       }
     }
+    &.show {
+      display: block;
+    }
   }
+  &.show {
+    display: flex;
+  }
+}
