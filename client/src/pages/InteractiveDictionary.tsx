@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { InteractiveDictionary } from "../store/interactiveDictionariesSlice";
-import "./InteractiveDictionary.scss"
+import "./InteractiveDictionary.scss";
 
 type InteractiveWord = {
   id: number;
@@ -16,8 +16,8 @@ type InteractiveWord = {
 function InteractiveDictionaryPage() {
   const location = useLocation();
   const { dictionary }: { dictionary: InteractiveDictionary } = location.state;
-  console.log(dictionary)
   const [words, setWords] = useState<InteractiveWord[]>([]);
+  const [activeWordId, setActiveWordId] = useState<number | null>(null);
 
   const fetchWords = useCallback(async () => {
     try {
@@ -32,11 +32,14 @@ function InteractiveDictionaryPage() {
       console.error("Error fetching results", error);
     }
   }, [dictionary]);
-  console.log(words);
 
   useEffect(() => {
     fetchWords();
   }, [fetchWords]);
+
+  const handleImageClick = (id: number) => {
+    setActiveWordId(id);
+  };
 
   return (
     <div className="container">
@@ -46,7 +49,11 @@ function InteractiveDictionaryPage() {
           {words &&
             words.length > 0 &&
             words.map((word) => (
-              <div className="image-wrapper">
+              <div
+                className="image-wrapper"
+                key={word.id}
+                onClick={() => handleImageClick(word.id)}
+              >
                 <img src={word.image} alt={`image-${word.title}`} />
               </div>
             ))}
@@ -55,8 +62,8 @@ function InteractiveDictionaryPage() {
           {words &&
             words.length > 0 &&
             words.map((word) => (
-              <div className="image-wrapper">
-                <span>
+              <div className="image-wrapper" key={word.id}>
+                <span className={activeWordId === word.id ? 'active' : ''}>
                   {word.title} - {word.translate}
                 </span>
               </div>

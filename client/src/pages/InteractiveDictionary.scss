@@ -1,10 +1,10 @@
 .container {
-    padding: 20px;
+    padding: 5%;
     text-align: center;
   
     .title {
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: 2rem; // 2rem для больших экранов, адаптируется на меньших
+      margin-bottom: 2%;
     }
   
     .content {
@@ -14,8 +14,9 @@
   
       .images {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        width: 50%;
+        grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); // 5 колонок на больших экранах
+        gap: 0.5%;
   
         .image-wrapper {
           cursor: pointer;
@@ -24,7 +25,7 @@
           img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
           }
   
@@ -39,18 +40,18 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        margin-left: 20px;
+        margin-left: 5%; // Отступ от изображений
   
         .image-wrapper {
-          margin-bottom: 10px;
+          margin-bottom: 2%;
           transition: color 0.3s;
   
           span {
-            font-size: 18px;
+            font-size: 1.5rem; // Адаптивный размер шрифта
             color: #333;
   
             &.active {
-              color: #007bff; // Цвет, который будет применяться при нажатии
+              color: #007bff; // Цвет для активного слова
             }
           }
         }
