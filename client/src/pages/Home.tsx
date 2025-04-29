@@ -1,30 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import FilterComponent from "../components/FilterComponent";
 import SearchComponent from "../components/SearchComponent";
 import "./Home.scss"; // Import the SASS styles
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { Category, setAllCategories } from "../store/categoriesSlice";
-import {
-  setAllInteractiveDictionaries,
-  InteractiveDictionary,
-} from "../store/interactiveDictionariesSlice";
 import Carousel from "../components/Carousel";
 
-type Result = {
-  id: number;
-  title: string;
-  translate: string;
-  likes: number;
-};
 
 function Home() {
   const [showSearch, setShowSearch] = useState(true);
-  const [dailyWord, setDailyWord] = useState<Result | null>(null);
-
-  const dispatch = useDispatch();
 
   const allCategories = useSelector(
     (state: RootState) => state.categories.allCategories
@@ -43,21 +28,6 @@ function Home() {
     setShowSearch(false);
   };
 
-  const fetchDailyword = useCallback(async () => {
-    try {
-      const response = await axios.get<Result[]>(
-        "http://localhost:3008/dailyword"
-      );
-      setDailyWord(response.data[0]);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchDailyword();
-  }, [fetchDailyword]);
-
   return (
     <main>
       <div className="container">
@@ -72,43 +42,6 @@ function Home() {
               <div className="selectors">
                 <span onClick={() => handleShowSearch()}>search</span>
                 <span onClick={() => handleShowFilter()}>filter</span>
-                <div className="daily-word">
-                  <span
-                    className="more-button"
-                    onClick={(e) =>
-                      ((e.target as HTMLButtonElement)!
-                        .parentNode as HTMLButtonElement)!.classList.toggle(
-                        "active"
-                      )
-                    }
-                  >
-                    daily word
-                  </span>
-                  <div className="more-button-list">
-                    <div className="wordList">
-                      <ul className="nameList">
-                        {dailyWord && (
-                          <li className="name">
-                            <span className="likes">
-                              <i className="fa-solid fa-heart"></i>
-                              <span>{dailyWord.likes || 0}</span>
-                            </span>
-                            <Link
-                              to={"word"}
-                              state={{ wordId: dailyWord.id }}
-                              className="title"
-                            >
-                              <span>{dailyWord.title}</span>
-                            </Link>
-                            <span className="translate">
-                              {dailyWord.translate}
-                            </span>
-                          </li>
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
               </div>
               <div className="search_filter">
                 <SearchComponent show={showSearch} />
@@ -134,7 +67,11 @@ function Home() {
                         }}
                       >
                         <img
-                          src="/img/regular-category-placeholder.png"
+                          src={
+                            category.image
+                              ? "/img/" + category.image
+                              : "/img/regular-category-placeholder.png"
+                          }
                           alt={category.name}
                         />
                         <span>{category.name}</span>
@@ -146,32 +83,6 @@ function Home() {
               allInteractiveDictionaries.length > 0 && (
                 <div className="category-visual">
                   <Carousel items={allInteractiveDictionaries} />
-                  {allInteractiveDictionaries[0] && (
-                    <div className="card">
-                      <Link
-                        to="/interactivedictionary"
-                        state={{ dictionary: allInteractiveDictionaries[0] }}
-                      >
-                        <img
-                          src={"/img/" + allInteractiveDictionaries[0].image}
-                          alt={allInteractiveDictionaries[0].name}
-                        />
-                      </Link>
-                    </div>
-                  )}
-                  {allInteractiveDictionaries[1] && (
-                    <div className="card">
-                      <Link
-                        to="/interactivedictionary"
-                        state={{ dictionary: allInteractiveDictionaries[1] }}
-                      >
-                        <img
-                          src={"/img/" + allInteractiveDictionaries[0].image}
-                          alt={allInteractiveDictionaries[0].name}
-                        />
-                      </Link>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -192,7 +103,11 @@ function Home() {
                         }}
                       >
                         <img
-                          src="/img/regular-category-placeholder.png"
+                          src={
+                            category.image
+                              ? "/img/" + category.image
+                              : "/img/regular-category-placeholder.png"
+                          }
                           alt={category.name}
                         />
                         <span>{category.name}</span>

@@ -1,60 +1,102 @@
-.container {
-    padding: 5%;
-    text-align: center;
-  
-    .title {
-      font-size: 2rem; // 2rem для больших экранов, адаптируется на меньших
-      margin-bottom: 2%;
+.container.interactive-dictionary {
+  padding: 20px 5%;
+  text-align: center;
+  > .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    h2 {
+      display: inline;
     }
-  
-    .content {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-  
-      .images {
-        display: grid;
-        width: 50%;
-        grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); // 5 колонок на больших экранах
-        gap: 0.5%;
-  
-        .image-wrapper {
-          cursor: pointer;
-          transition: transform 0.3s;
-  
-          img {
-            width: 100%;
-            height: auto;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-          }
-  
-          &:hover {
-            transform: scale(1.05);
-          }
+    .like {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #043c5f;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 46px;
+      margin-left: 10px;
+      border-radius: 20px;
+      color: white;
+      &.liked {
+        color: #f0763e;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2%;
+
+    .images {
+      display: grid;
+      width: 49%;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(125px, 1fr)
+      ); // 5 колонок на больших экранах
+      gap: 0.5%;
+      height: fit-content;
+
+      .image-wrapper {
+        cursor: pointer;
+        transition: transform 0.3s;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        &:hover {
+          transform: scale(1.05);
         }
       }
-  
-      .names {
+    }
+
+    .names {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 49%;
+      height: inherit;
+
+      .word {
+        width: 45%;
+        margin-bottom: 10px;
+        border: 2px solid #00a19a;
+        border-radius: 8px;
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: flex-start;
-        margin-left: 5%; // Отступ от изображений
-  
-        .image-wrapper {
-          margin-bottom: 2%;
-          transition: color 0.3s;
-  
-          span {
-            font-size: 1.5rem; // Адаптивный размер шрифта
-            color: #333;
-  
-            &.active {
-              color: #007bff; // Цвет для активного слова
+        align-items: center;
+
+        span {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+          gap: 10px;
+          align-items: center;
+          width: 100%;
+          padding: 12px;
+          color: black;
+          &.active {
+            color: #007bff; // Цвет для активного слова
+          }
+          > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            svg {
             }
           }
         }
       }
     }
   }
+}

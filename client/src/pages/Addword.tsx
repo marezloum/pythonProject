@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./AddWord.scss";
 import AddNormalWord from "../components/AddNormalWord";
 import AddInteractiveWord from "../components/AddInteractiveWord";

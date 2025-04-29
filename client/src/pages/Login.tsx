@@ -16,7 +16,7 @@ const Login: React.FC = () => {
       navigate("/");
     }
   }, [userId, navigate]);
-  const [_, setCookie] = useCookies<"userId", CookieValues>(["userId"]);
+  const [cookie, setCookie] = useCookies<"userId", CookieValues>(["userId"]);
   const dispatch = useDispatch();
 
   const [loginEmail, setLoginEmail] = useState("");

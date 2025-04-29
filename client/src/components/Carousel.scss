@@ -85,6 +85,8 @@
     flex-wrap: wrap;
     list-style: none;
     padding: 0;
+    position: relative;
+    z-index: 1;
 
     &.prev {
       animation-duration: 0.6s;

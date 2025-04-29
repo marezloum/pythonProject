@@ -1,5 +1,6 @@
 .category-title {
   padding: 20px;
+
   h1 {
     text-align: center;
   }
@@ -8,30 +9,51 @@
 .category-items_wrapper {
   padding: 0 30px 30px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; // Позволяет элементам переходить на следующий ряд
+  justify-content: space-between; // Распределяет элементы по горизонтали
+  background: linear-gradient(to right bottom, #FFFAF2, #00a19a82);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); // Эффект тени при наведении
+
+  border-radius: 16px;
+	&::before {
+		content: "";
+		top: -10rem;
+		left: -10rem;
+		width: 40rem;
+		height: 40rem;
+		position: absolute;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.35);
+	}
+
+	&::after {
+		content: "";
+		bottom: 0rem;
+		right: -10rem;
+		width: 40rem;
+		height: 40rem;
+		margin-bottom: -25rem;
+		position: absolute;
+		border-radius: 50%;
+		background: rgba(10, 138, 167, 0.282);
+	}
+
   .word {
-    width: 50%;
+    width: 48%; // Устанавливаем ширину для двух колонок
+    margin: 10px; // Отступы между элементами
+    border: 2px solid #00a19a; // Задаем границу
+    border-radius: 8px; // Скругляем углы
+
     a {
-      animation: transform 1s ease;
-      color: black;
-      text-decoration: none;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; // Размещает элементы внутри ссылки
       align-items: center;
       padding: 20px;
-      max-width: 500px;
-      border-bottom: 4px solid #00a19a;
-      font-size: 20px;
-      margin: 0 auto;
-      &:hover {
-        transform: scale(1.1);
-      }
-      .title {
-      }
-      .translate {
-      }
+      color: black;
+      text-decoration: none; // Убираем подчеркивание
     }
   }
+
   .no-words {
     display: flex;
     justify-content: center;
@@ -39,5 +61,8 @@
     width: 100%;
     font-size: 30px;
     font-weight: bold;
+    color: black;
   }
+  
 }
+

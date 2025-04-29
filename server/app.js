@@ -46,7 +46,7 @@ app.get("/dailyword", (req, res) => {
   const normalwordsQuery = `
     SELECT w.id, w.title, w.translate, COUNT(l.id) AS likes_count
     FROM normalwords w
-    LEFT JOIN likes l ON w.id = l.normal_word_id
+    LEFT JOIN likes l ON w.id = l.visual_word_id
     WHERE w.id = ?
     GROUP BY w.id
     ORDER BY likes_count
@@ -107,7 +107,7 @@ app.post("/category", (req, res) => {
   const categoryWordsQuery = `
     SELECT w.id, w.title, w.translate, w.description, c.name AS category_name, w.video, w.image, w.tags, w.examples, COUNT(l.id) AS likes
     FROM normalwords w
-    LEFT JOIN likes l ON w.id = l.normal_word_id
+    LEFT JOIN likes l ON w.id = l.visual_word_id
     JOIN Categories c ON w.category = c.id 
     WHERE w.category ="${categoryId}"
     GROUP BY w.id
@@ -265,12 +265,26 @@ app.post("/login", (req, res) => {
 app.post("/fetchuser", (req, res) => {
   const { userId } = req.body;
 
-  const query = `SELECT u.id, u.display_name as name, r.name as user_role, a.url as avatar_url
-    FROM users u
-    LEFT JOIN roles r ON r.id = u.role
-    LEFT JOIN avatars a ON a.id = u.avatar
-    WHERE u.id = ?`;
-  db.query(query, [userId], async (error, results) => {
+  const query = `
+  SELECT 
+    u.id, 
+    u.display_name AS name, 
+    r.name AS user_role, 
+    a.url AS avatar_url,
+    nw.id AS visual_word_id,
+    nw.title AS visual_word_title,
+    idic.id AS interactive_dictionary_id,
+    idic.name AS interactive_dictionary_name,
+    lid.id AS like_id
+  FROM users u
+  LEFT JOIN roles r ON r.id = u.role
+  LEFT JOIN avatars a ON a.id = u.avatar
+  LEFT JOIN likes lid ON lid.user_id = u.id
+  LEFT JOIN normalwords nw ON nw.id = lid.visual_word_id
+  LEFT JOIN interactive_dictionaries idic ON idic.id = lid.interactive_dictionary_id
+  WHERE u.id = ?`;
+
+  db.query(query, [userId], (error, results) => {
     if (error) {
       console.error("Database query error:", error);
       return res.status(500).json({ error: "Database error" });
@@ -278,10 +292,25 @@ app.post("/fetchuser", (req, res) => {
 
     if (results.length > 0) {
       const user = results[0];
-      res.status(200).json({ message: "Login successful", user });
-
+      const likedItems = {
+        visualWords: results
+          .filter(row => row.visual_word_id)
+          .map(row => ({
+            likeId: row.like_id,
+            wordId: row.visual_word_id,
+            title: row.visual_word_title,
+          })),
+        interactiveDictionaries: results
+          .filter(row => row.interactive_dictionary_id)
+          .map(row => ({
+            likeId: row.like_id,
+            dictionaryId: row.interactive_dictionary_id,
+            dictionaryName: row.interactive_dictionary_name,
+          })),
+      };
+      user.likedItems = likedItems;
+      res.status(200).json({ message: "User fetched successfully", user });
     } else {
-      // User not found
       res.status(404).json({ error: "User not found" });
     }
   });
@@ -289,12 +318,12 @@ app.post("/fetchuser", (req, res) => {
 
 // Word Endpoint
 
-app.get("/word", (req, res) => {
+app.get("/visualword", (req, res) => {
   const wordId = req.query.id; //localhost/search?term=book    searchterm=book
   db.query(`
-    SELECT w.title, w.translate, w.description, c.name AS category_name, w.video, w.image, w.tags, w.examples, COUNT(l.id) AS likes
+    SELECT w.title, w.translate, w.description, c.name AS category_name, c.id AS category_id, w.video, w.image, w.tags, w.examples, COUNT(l.id) AS likes
     FROM normalwords w
-    LEFT JOIN likes l ON w.id = l.normal_word_id
+    LEFT JOIN likes l ON w.id = l.visual_word_id
     JOIN Categories c ON w.category = c.id 
     WHERE w.id ="${wordId}"
     GROUP BY w.id
@@ -303,8 +332,34 @@ app.get("/word", (req, res) => {
       //ترم رو هرجای کلمه که پیدا کردی نشون بده
       if (err) throw err; // دیبی. کوئری خودش یک متدی از آبجکت دیبی هستش که دوتا ورودی داره
       //queryString and callback Function
+      const wordData = results[0];
+      const category = wordData["category_id"];
+      // Query to get related words in the same category
+      const relatedWordsQuery = `
+        SELECT w.id, w.title, w.translate, w.image, COUNT(l.id) AS likes
+        FROM normalwords w
+        LEFT JOIN likes l ON w.id = l.visual_word_id
+        WHERE w.category = ?
+        AND w.id != ?
+        GROUP BY w.id
+        ORDER BY likes`;
 
-      res.json(results); //نتیجه یرای کاربر ارسال میشه
+      db.query(relatedWordsQuery, [category, wordId], (err, relatedResults) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "Database error" });
+        }
+        function shuffleArray(array) {
+          for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+          }
+          return array;
+        }
+        res.json({ wordData, relatedWords: shuffleArray(relatedResults) });
+      });
     }
   );
 });
@@ -401,24 +456,45 @@ app.post('/addinteractiveword',
   });
 
 // Add Normal word category
-app.post('/addcategory', (req, res) => {
-  const { name } = req.body;
+app.post(
+  "/addcategory",
+  multer({
+    storage: multer.diskStorage({
+      destination: (req, file, cb) => {
+        if (file.mimetype.startsWith("image/")) {
+          cb(null, path.join(__dirname, "../client/public/img/")); // Directory for images
+        } else {
+          cb(new Error("Invalid file type"), false);
+        }
+      },
+      filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+      },
+    }),
+  }).fields([{ name: "image" }]),
+  (req, res) => {
+    const { name } = req.body;
+    const imageFile = req.files["image"] ? req.files["image"][0] : null;
 
-  const insertQuery = `INSERT INTO categories (name) VALUES (?)`;
+    const insertQuery = `INSERT INTO categories (name, image) VALUES (?, ?)`;
 
-  const values = [
-    name, // From req.body
-  ];
+    const values = [
+      name, // From req.body
+      imageFile ? imageFile.filename : null, // From multer
+    ];
 
-  // Execute the insert query
-  db.query(insertQuery, values, (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: 'Error inserting data' });
-    }
-    res.status(201).json({ message: 'Category added successfully', id: results.insertId });
-  });
-});
+    // Execute the insert query
+    db.query(insertQuery, values, (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error inserting data" });
+      }
+      res
+        .status(201)
+        .json({ message: "category added successfully", id: results.insertId });
+    });
+  }
+);
 
 // Add interactive word dictionary
 app.post('/addinteractivedictionary', multer({
@@ -455,6 +531,54 @@ app.post('/addinteractivedictionary', multer({
       res.status(201).json({ message: 'dictionary added successfully', id: results.insertId });
     });
   });
+
+app.post("/like", (req, res) => {
+  const { userId, visualWordId, interactiveDictionaryId } = req.body;
+
+  // Check if the user already liked the visual word
+  const checkLikeQuery = `
+    SELECT * FROM likes 
+    WHERE user_id = ? AND (visual_word_id = ? OR interactive_dictionary_id = ?)`;
+
+  db.query(checkLikeQuery, [userId, visualWordId, interactiveDictionaryId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length > 0) {
+      return res.status(409).json({ error: "Already liked" });
+    }
+
+    // Insert like
+    const insertLikeQuery = `
+      INSERT INTO likes (user_id, visual_word_id, interactive_dictionary_id) 
+      VALUES (?, ?, ?)`;
+
+    db.query(insertLikeQuery, [userId, visualWordId, interactiveDictionaryId], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Database error" });
+      }
+      res.status(201).json({ message: "Liked successfully", likeId: result.insertId });
+    });
+  });
+});
+
+app.delete("/dislike/:id", (req, res) => {
+  const likeId = req.params.id;
+
+  const deleteLikeQuery = `
+    DELETE FROM likes WHERE id = ?`;
+
+  db.query(deleteLikeQuery, [likeId], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.status(200).json({ message: "Disliked successfully" });
+  });
+});
 
 // Start the server
 app.listen(port, () => {

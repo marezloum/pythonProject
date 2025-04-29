@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./Category.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-type Word = {
+export type Word = {
   id: number;
   tags: string;
   title: string;

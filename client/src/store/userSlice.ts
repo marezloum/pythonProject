@@ -6,6 +6,12 @@ type UserState = {
   name: string;
   user_role: string;
   avatar_url: string;
+  likedItems: {
+    visualWords: { likeId: number; wordId: number; title: string }[] | [];
+    interactiveDictionaries:
+      | { likeId: number; dictionaryId: number; dictionaryName: string }[]
+      | [];
+  };
 };
 
 const initialState: { user: UserState } = {
@@ -14,6 +20,10 @@ const initialState: { user: UserState } = {
     name: "",
     user_role: "user",
     avatar_url: "",
+    likedItems: {
+      visualWords: [],
+      interactiveDictionaries: [],
+    },
   },
 };
 

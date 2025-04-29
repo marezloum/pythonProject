@@ -8,7 +8,7 @@ import store from "./store/store";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
-import Word from "./pages/Word";
+import VisualWord from "./pages/VisualWord";
 import Category from "./pages/Category";
 import InteractiveDictionaryPage from "./pages/InteractiveDictionary";
 import AddWord from "./pages/Addword";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/word" element={<Word />} />
+          <Route path="/word" element={<VisualWord />} />
           <Route
             path="/interactivedictionary"
             element={<InteractiveDictionaryPage />}

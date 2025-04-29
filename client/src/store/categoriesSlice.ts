@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type Category = {
   id: number;
   name: string;
+  image: string;
 }
 type CategoriesState = {
   allCategories: Category[] | null;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import axios from "axios";
 
 type InteractiveDictionaryFormState = {
   name: string;
@@ -84,7 +83,7 @@ function AddInteractiveDictionary() {
         />
         <br />
         <button type="button" onClick={(e) => handleSubmit()}>
-          Add Word
+          Add Interactive Dictionay
         </button>{" "}
         <p>{message}</p>
       </form>

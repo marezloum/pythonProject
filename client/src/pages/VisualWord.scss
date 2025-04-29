@@ -1,0 +1,142 @@
+.regular-word {
+  padding: 40px;
+  .search-component {
+    width: 50%;
+    justify-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #043c5f;
+    margin-bottom: 20px;
+    input {
+      width: 100%;
+    }
+    .wordList {
+      width: 100%;
+      top: 60px;
+      background-color: #043c5f;
+      ul {
+        background-color: unset;
+        a {
+          color: white;
+        }
+      }
+    }
+  }
+  .word-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 50px;
+    .word-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-self: start;
+      width: 70%;
+      gap: 20px;
+      > div:not(.like) {
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        min-width: 300px;
+      }
+      .like {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #043c5f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        border-radius: 20px;
+        color: white;
+        &.liked {
+          color: #f0763e;
+        }
+      }
+      .title {
+        font-size: 20px;
+      }
+      .category {
+        font-size: 20px;
+      }
+      .translate {
+        font-size: 20px;
+      }
+      .tags {
+        font-size: 20px;
+      }
+    }
+    .word-image {
+      max-width: 270px;
+      max-height: 270px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .word-description {
+      width: 100%;
+      margin-bottom: 10px;
+      h3 {
+        text-align: left;
+      }
+    }
+    .word-examples {
+      width: 100%;
+      h3 {
+        text-align: left;
+      }
+    }
+  }
+  .relatedWords-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: end;
+    padding-bottom: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    &::before {
+      content: " ";
+      position: absolute;
+      bottom: 0;
+      background: #1195ad;
+      width: 100%;
+      height: 230px;
+      z-index: 1;
+      border-radius: 8px;
+    }
+    > .card {
+      max-width: 280px;
+      cursor: pointer;
+      height: 370px;
+      border: 3px solid #002d49;
+      border-radius: 20px;
+      z-index: 1;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+      }
+      img {
+        width: 220px;
+        height: 270px;
+        object-fit: cover;
+        border-radius: 20px;
+      }
+      span {
+        display: block;
+        color: white;
+        font-size: 20px;
+        line-height: 26px;
+      }
+    }
+  }
+}
