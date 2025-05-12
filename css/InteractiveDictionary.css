@@ -1,0 +1,90 @@
+.container.interactive-dictionary {
+  padding: 20px 5%;
+  text-align: center;
+}
+.container.interactive-dictionary > .title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.container.interactive-dictionary > .title h2 {
+  display: inline;
+}
+.container.interactive-dictionary > .title .like {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #043c5f;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  margin-left: 10px;
+  border-radius: 20px;
+  color: white;
+}
+.container.interactive-dictionary > .title .like.liked {
+  color: #f0763e;
+}
+.container.interactive-dictionary .content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+.container.interactive-dictionary .content .images {
+  display: grid;
+  width: 49%;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  gap: 0.5%;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.container.interactive-dictionary .content .images .image-wrapper {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.container.interactive-dictionary .content .images .image-wrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.container.interactive-dictionary .content .images .image-wrapper:hover {
+  transform: scale(1.05);
+}
+.container.interactive-dictionary .content .names {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 49%;
+  height: inherit;
+}
+.container.interactive-dictionary .content .names .word {
+  width: 45%;
+  margin-bottom: 10px;
+  border: 2px solid #00a19a;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container.interactive-dictionary .content .names .word span {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  color: black;
+}
+.container.interactive-dictionary .content .names .word span.active {
+  color: #007bff;
+}
+.container.interactive-dictionary .content .names .word span > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}

@@ -1,7 +1,7 @@
 
 $(".line").click(function () {
   $(".line").css({
-    width: "300px",
+    width: "400px",
     transition: "width .5s, transform .2s linear .5s",
     cursor: "default",
   });
