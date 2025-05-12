@@ -300,6 +300,46 @@ $menu-icon-transition: transform 300ms cubic-bezier(0.52, -0.8, 0.52, 0.52);
         }
       }
     }
+    .clickable-dictionaries {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: end;
+      padding-bottom: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      &::before {
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        background: #1195ad;
+        width: 100%;
+        height: 230px;
+        z-index: 1;
+        border-radius: 8px;
+      }
+      > .card {
+        width: 40%;
+        max-width: 600px;
+        border: 3px solid #002d49;
+        border-radius: 23px;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+
+          border-radius: 20px 20px 0 0;
+        }
+      }
+    }
   }
 }
 

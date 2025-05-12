@@ -3,8 +3,8 @@ const bodyParser = require("body-parser");
 const db = require("./db"); // Import the database connection module
 const cors = require("cors");
 const bcrypt = require("bcrypt"); //hash password
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
 const app = express(); //فانکشن اکسپرس رو که اجرا میکنیم ، یه آبجکت تحویل میده که نقش وب سرور رو داره
 const port = 3008;
@@ -54,7 +54,7 @@ app.get("/dailyword", (req, res) => {
 
   db.query(normalwordsQuery, [Math.min(currentMinute, 2)], (err, results) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
@@ -66,7 +66,7 @@ app.get("/allcategories", (req, res) => {
 
   db.query(categoriesQuery, (err, results) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
@@ -78,7 +78,7 @@ app.get("/interactivedictionaries", (req, res) => {
 
   db.query(categoriesQuery, (err, results) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
@@ -95,7 +95,7 @@ app.post("/interactivewords", (req, res) => {
 
   db.query(categoryWordsQuery, (err, results) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
@@ -115,7 +115,7 @@ app.post("/category", (req, res) => {
 
   db.query(categoryWordsQuery, (err, results) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({ error: err.message });
     }
     res.json(results);
@@ -168,7 +168,7 @@ app.post("/filter", (req, res) => {
 
   if (category) {
     query += ` category = ?`;
-    queryParams.push(`${category}`);// Add category conditions
+    queryParams.push(`${category}`); // Add category conditions
   }
 
   // Include image/video filters if specified
@@ -294,15 +294,15 @@ app.post("/fetchuser", (req, res) => {
       const user = results[0];
       const likedItems = {
         visualWords: results
-          .filter(row => row.visual_word_id)
-          .map(row => ({
+          .filter((row) => row.visual_word_id)
+          .map((row) => ({
             likeId: row.like_id,
             wordId: row.visual_word_id,
             title: row.visual_word_title,
           })),
         interactiveDictionaries: results
-          .filter(row => row.interactive_dictionary_id)
-          .map(row => ({
+          .filter((row) => row.interactive_dictionary_id)
+          .map((row) => ({
             likeId: row.like_id,
             dictionaryId: row.interactive_dictionary_id,
             dictionaryName: row.interactive_dictionary_name,
@@ -320,7 +320,8 @@ app.post("/fetchuser", (req, res) => {
 
 app.get("/visualword", (req, res) => {
   const wordId = req.query.id; //localhost/search?term=book    searchterm=book
-  db.query(`
+  db.query(
+    `
     SELECT w.title, w.translate, w.description, c.name AS category_name, c.id AS category_id, w.video, w.image, w.tags, w.examples, COUNT(l.id) AS likes
     FROM normalwords w
     LEFT JOIN likes l ON w.id = l.visual_word_id
@@ -364,29 +365,37 @@ app.get("/visualword", (req, res) => {
   );
 });
 
-
 // Add Noraml Word Endpoint
-app.post('/addnormalword',
+app.post(
+  "/addnormalword",
   multer({
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-          cb(null, path.join(__dirname, '../client/public/img/')); // Directory for images
-        } else if (file.mimetype.startsWith('video/')) {
-          cb(null, path.join(__dirname, '../client/public/videos/')); // Directory for videos
+        if (file.mimetype.startsWith("image/")) {
+          cb(null, path.join(__dirname, "../client/public/img/")); // Directory for images
+        } else if (file.mimetype.startsWith("video/")) {
+          cb(null, path.join(__dirname, "../client/public/videos/")); // Directory for videos
         } else {
-          cb(new Error('Invalid file type'), false);
+          cb(new Error("Invalid file type"), false);
         }
       },
       filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
-      }
-    })
-  }).fields([{ name: 'image' }, { name: 'video' }]),
+      },
+    }),
+  }).fields([{ name: "image" }, { name: "video" }]),
   (req, res) => {
-    const { title, translate, description, tags, dictionary, category, examples } = req.body;
-    const imageFile = req.files['image'] ? req.files['image'][0] : null;
-    const videoFile = req.files['video'] ? req.files['video'][0] : null;
+    const {
+      title,
+      translate,
+      description,
+      tags,
+      dictionary,
+      category,
+      examples,
+    } = req.body;
+    const imageFile = req.files["image"] ? req.files["image"][0] : null;
+    const videoFile = req.files["video"] ? req.files["video"][0] : null;
 
     const insertQuery = `
       INSERT INTO normalwords (title, translate, description, category, image, video, tags, examples)
@@ -400,38 +409,42 @@ app.post('/addnormalword',
       imageFile ? "/img/" + imageFile.filename : null, // From multer
       videoFile ? "/videos/" + videoFile.filename : null, // From multer
       tags, // Assuming you have tags in your req.body
-      examples // From req.body
+      examples, // From req.body
     ];
 
     // Execute the insert query
     db.query(insertQuery, values, (err, results) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ message: 'Error inserting data' });
+        return res.status(500).json({ message: "Error inserting data" });
       }
-      res.status(201).json({ message: 'Word added successfully', id: results.insertId });
+      res
+        .status(201)
+        .json({ message: "Word added successfully", id: results.insertId });
     });
-  });
+  }
+);
 
 // Add Interactive Word Endpoint
-app.post('/addinteractiveword',
+app.post(
+  "/addinteractiveword",
   multer({
     storage: multer.diskStorage({
       destination: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-          cb(null, path.join(__dirname, '../client/public/img/')); // Directory for images
+        if (file.mimetype.startsWith("image/")) {
+          cb(null, path.join(__dirname, "../client/public/img/")); // Directory for images
         } else {
-          cb(new Error('Invalid file type'), false);
+          cb(new Error("Invalid file type"), false);
         }
       },
       filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
-      }
-    })
-  }).fields([{ name: 'image' }]),
+      },
+    }),
+  }).fields([{ name: "image" }]),
   (req, res) => {
     const { title, translate, dictionary, tags } = req.body;
-    const imageFile = req.files['image'] ? req.files['image'][0] : null;
+    const imageFile = req.files["image"] ? req.files["image"][0] : null;
 
     const insertQuery = `
       INSERT INTO interactive_words (title, translate, dictionary_id, image, tags)
@@ -449,11 +462,14 @@ app.post('/addinteractiveword',
     db.query(insertQuery, values, (err, results) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ message: 'Error inserting data' });
+        return res.status(500).json({ message: "Error inserting data" });
       }
-      res.status(201).json({ message: 'Word added successfully', id: results.insertId });
+      res
+        .status(201)
+        .json({ message: "Word added successfully", id: results.insertId });
     });
-  });
+  }
+);
 
 // Add Normal word category
 app.post(
@@ -497,23 +513,25 @@ app.post(
 );
 
 // Add interactive word dictionary
-app.post('/addinteractivedictionary', multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      if (file.mimetype.startsWith('image/')) {
-        cb(null, path.join(__dirname, '../client/public/img/')); // Directory for images
-      } else {
-        cb(new Error('Invalid file type'), false);
-      }
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
-    }
-  })
-}).fields([{ name: 'image' }]),
+app.post(
+  "/addinteractivedictionary",
+  multer({
+    storage: multer.diskStorage({
+      destination: (req, file, cb) => {
+        if (file.mimetype.startsWith("image/")) {
+          cb(null, path.join(__dirname, "../client/public/img/")); // Directory for images
+        } else {
+          cb(new Error("Invalid file type"), false);
+        }
+      },
+      filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+      },
+    }),
+  }).fields([{ name: "image" }]),
   (req, res) => {
     const { name } = req.body;
-    const imageFile = req.files['image'] ? req.files['image'][0] : null;
+    const imageFile = req.files["image"] ? req.files["image"][0] : null;
 
     const insertQuery = `INSERT INTO interactive_dictionaries (name, image) VALUES (?, ?)`;
 
@@ -526,11 +544,17 @@ app.post('/addinteractivedictionary', multer({
     db.query(insertQuery, values, (err, results) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ message: 'Error inserting data' });
+        return res.status(500).json({ message: "Error inserting data" });
       }
-      res.status(201).json({ message: 'dictionary added successfully', id: results.insertId });
+      res
+        .status(201)
+        .json({
+          message: "dictionary added successfully",
+          id: results.insertId,
+        });
     });
-  });
+  }
+);
 
 app.post("/like", (req, res) => {
   const { userId, visualWordId, interactiveDictionaryId } = req.body;
@@ -540,29 +564,39 @@ app.post("/like", (req, res) => {
     SELECT * FROM likes 
     WHERE user_id = ? AND (visual_word_id = ? OR interactive_dictionary_id = ?)`;
 
-  db.query(checkLikeQuery, [userId, visualWordId, interactiveDictionaryId], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Database error" });
-    }
-
-    if (results.length > 0) {
-      return res.status(409).json({ error: "Already liked" });
-    }
-
-    // Insert like
-    const insertLikeQuery = `
-      INSERT INTO likes (user_id, visual_word_id, interactive_dictionary_id) 
-      VALUES (?, ?, ?)`;
-
-    db.query(insertLikeQuery, [userId, visualWordId, interactiveDictionaryId], (err, result) => {
+  db.query(
+    checkLikeQuery,
+    [userId, visualWordId, interactiveDictionaryId],
+    (err, results) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: "Database error" });
       }
-      res.status(201).json({ message: "Liked successfully", likeId: result.insertId });
-    });
-  });
+
+      if (results.length > 0) {
+        return res.status(409).json({ error: "Already liked" });
+      }
+
+      // Insert like
+      const insertLikeQuery = `
+      INSERT INTO likes (user_id, visual_word_id, interactive_dictionary_id) 
+      VALUES (?, ?, ?)`;
+
+      db.query(
+        insertLikeQuery,
+        [userId, visualWordId, interactiveDictionaryId],
+        (err, result) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Database error" });
+          }
+          res
+            .status(201)
+            .json({ message: "Liked successfully", likeId: result.insertId });
+        }
+      );
+    }
+  );
 });
 
 app.delete("/dislike/:id", (req, res) => {
@@ -577,6 +611,52 @@ app.delete("/dislike/:id", (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
     res.status(200).json({ message: "Disliked successfully" });
+  });
+});
+
+// Endpoint to fetch clickable dictionary data
+app.get("/clickable-dictionary/:id", (req, res) => {
+  const dictionaryId = req.params.id;
+
+  const query = `
+    SELECT imageSrc, title, shapes
+    FROM clickable_dictionary
+    WHERE id = ?;
+  `;
+
+  db.query(query, [dictionaryId], (err, results) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      return res.status(500).json({ error: "Failed to fetch data." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Dictionary not found." });
+    }
+
+    const dictionary = results[0];
+    dictionary.shapes = JSON.parse(dictionary.shapes); // Parse the JSON string into an object
+    res.json(dictionary);
+  });
+});
+
+// Endpoint to fetch clickable dictionary data
+app.get("/clickable-dictionaries", (req, res) => {
+  const query = `
+    SELECT id, imageSrc, title, shapes
+    FROM clickable_dictionary;
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      return res.status(500).json({ error: "Failed to fetch data." });
+    }
+
+    const dictionaries = results;
+    console.log(dictionaries)
+
+    res.json(dictionaries);
   });
 });
 

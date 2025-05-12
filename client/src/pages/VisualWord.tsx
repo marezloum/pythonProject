@@ -106,12 +106,10 @@ function VisualWord() {
               <i className="fa-solid fa-heart"></i>
             </div>
           )}
-          <div className="title">title: {wordData?.title}</div>
-          <div className="category">category: {wordData?.category_name}</div>
-          <div className="translate">translation: {wordData?.translate}</div>
-          <div className="tags">
-            tags: {wordData?.tags?.split(",").join(" ")}
-          </div>
+          <div className="title">{wordData?.title}</div>
+          <div className="category">{wordData?.category_name}</div>
+          <div className="translate">{wordData?.translate}</div>
+          <div className="tags">{wordData?.tags?.split(",").join(" ")}</div>
         </div>
         <div className="word-image">
           <img
@@ -120,11 +118,9 @@ function VisualWord() {
           />
         </div>
         <div className="word-description">
-          <h3>Description</h3>
           <p>{wordData?.description}</p>
         </div>
         <div className="word-examples">
-          <h3>Examples</h3>
           <p dangerouslySetInnerHTML={{ __html: wordData?.examples || "" }}></p>
         </div>
       </div>
@@ -139,7 +135,7 @@ function VisualWord() {
                 key={`related-word-${word.id}`}
                 onClick={() => {
                   setWordId(word.id);
-                  navigate('.', { state: { wordId: word.id } });
+                  navigate(".", { state: { wordId: word.id } });
                 }}
               >
                 <div className="title">

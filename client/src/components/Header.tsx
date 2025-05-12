@@ -14,6 +14,10 @@ import {
   InteractiveDictionary,
   setAllInteractiveDictionaries,
 } from "../store/interactiveDictionariesSlice";
+import {
+  ClickableDictionary,
+  setAllClickableDictionaries,
+} from "../store/clickableDictionariesSlice";
 
 function Header() {
   const { id: userId, user_role } = useSelector(
@@ -93,10 +97,26 @@ function Header() {
     }
   }, [dispatch]);
 
+  const fetchClickableDictionaries = useCallback(async () => {
+    try {
+      const response = await axios.get<ClickableDictionary[]>(
+        "http://localhost:3008/clickable-dictionaries"
+      );
+      dispatch(setAllClickableDictionaries(response.data));
+    } catch (error) {
+      console.error("Error fetching clickable dictionaries", error);
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     fetchNormalWordsCategories();
     fetchInteractiveDictionaries();
-  }, [fetchNormalWordsCategories, fetchInteractiveDictionaries]);
+    fetchClickableDictionaries(); // Fetch clickable dictionaries
+  }, [
+    fetchNormalWordsCategories,
+    fetchInteractiveDictionaries,
+    fetchClickableDictionaries,
+  ]);
 
   return (
     <header>

@@ -12,6 +12,7 @@ import VisualWord from "./pages/VisualWord";
 import Category from "./pages/Category";
 import InteractiveDictionaryPage from "./pages/InteractiveDictionary";
 import AddWord from "./pages/Addword";
+import ClickableVisualDictionary from "./pages/ClickableVisualDictionary";
 
 function App() {
   return (
@@ -29,9 +30,13 @@ function App() {
           />
           <Route path="/category" element={<Category />} />
           <Route path="/addword" element={<AddWord />} />
+          <Route
+            path="/clickable-visual-dictionary"
+            element={<ClickableVisualDictionary />}
+          />
         </Routes>
+        <Footer />
       </Router>
-      <Footer />
     </Provider>
   );
 }
