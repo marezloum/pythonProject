@@ -1,68 +1,71 @@
-.category-title {
-  padding: 20px;
-
-  h1 {
-    text-align: center;
+.category-page {
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    margin: 0;
+    padding: 0;
   }
-}
 
-.category-items_wrapper {
-  padding: 0 30px 30px;
-  display: flex;
-  flex-wrap: wrap; // Позволяет элементам переходить на следующий ряд
-  justify-content: space-between; // Распределяет элементы по горизонтали
-  background: linear-gradient(to right bottom, #FFFAF2, #00a19a82);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); // Эффект тени при наведении
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-  border-radius: 16px;
-	&::before {
-		content: "";
-		top: -10rem;
-		left: -10rem;
-		width: 40rem;
-		height: 40rem;
-		position: absolute;
-		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.35);
-	}
+  .category-title {
+    text-align: center;
+    margin-bottom: 30px;
 
-	&::after {
-		content: "";
-		bottom: 0rem;
-		right: -10rem;
-		width: 40rem;
-		height: 40rem;
-		margin-bottom: -25rem;
-		position: absolute;
-		border-radius: 50%;
-		background: rgba(10, 138, 167, 0.282);
-	}
-
-  .word {
-    width: 48%; // Устанавливаем ширину для двух колонок
-    margin: 10px; // Отступы между элементами
-    border: 2px solid #00a19a; // Задаем границу
-    border-radius: 8px; // Скругляем углы
-
-    a {
-      display: flex;
-      justify-content: space-between; // Размещает элементы внутри ссылки
-      align-items: center;
-      padding: 20px;
-      color: black;
-      text-decoration: none; // Убираем подчеркивание
+    h1 {
+      font-size: 3rem;
+      color: #f0763e;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
   }
 
-  .no-words {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-size: 30px;
-    font-weight: bold;
-    color: black;
+  .category-items_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+
+    .word {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      a {
+        display: block;
+        text-align: center;
+        padding: 20px;
+        text-decoration: none;
+        color: #333;
+
+        .title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+
+        .translate {
+          font-size: 1.2rem;
+          color: #555;
+        }
+      }
+    }
+
+    .no-words {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
   }
-  
 }
 

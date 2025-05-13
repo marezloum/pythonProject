@@ -120,49 +120,55 @@ function Header() {
 
   return (
     <header>
-      <div className="logo">
-        <Link to="/">Lexoverse</Link>
-      </div>
-      <div className="frame">
-        <div className="center">
-          <div className="line line-one">
-            <div className="line-one-fill"></div>
-          </div>
-          <div className="menu">
-            <ul>
-              {location.pathname !== "/" && (
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-              )}
-              {userId ? (
-                <>
+      <div className="row">
+        <div className="logo">
+          <Link to="/">Lexoverse</Link>
+        </div>
+        <div className="frame">
+          <div className="center">
+            <div className="line line-one">
+              <div className="line-one-fill"></div>
+            </div>
+            <div className="menu">
+              <ul>
+                {location.pathname !== "/" && (
                   <li>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/">Home</Link>
                   </li>
-                  <li>
-                    <a onClick={() => handleLogout()}>Logout</a>
-                  </li>
-                  {user_role === "admin" &&
-                    location.pathname !== "/addword" && (
-                      <li>
-                        <Link to="/addword">Add Word</Link>
-                      </li>
-                    )}
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/login">Login</Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-          <div className="line line-two">
-            <div className="line-one-fill"></div>
+                )}
+                {userId ? (
+                  <>
+                    <li>
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <a onClick={() => handleLogout()}>Logout</a>
+                    </li>
+                    {user_role === "admin" &&
+                      location.pathname !== "/addword" && (
+                        <li>
+                          <Link to="/addword">Add Word</Link>
+                        </li>
+                      )}
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/login">Login</Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
+            <div className="line line-two">
+              <div className="line-one-fill"></div>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="title">
+        <span>Русско-персидский онлайн словарь</span>
+        <span>فرهنگ آنلاین روسی به فارسی</span>
       </div>
     </header>
   );

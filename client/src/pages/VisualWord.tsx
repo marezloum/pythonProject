@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import "./VisualWord.scss";
 import SearchComponent from "../components/SearchComponent";
 import { useSelector } from "react-redux";
@@ -24,20 +24,24 @@ type RelatedWord = {
   image: string;
 };
 function VisualWord() {
+  const [searchParams] = useSearchParams(); // Get query parameters
   const [wordData, setWordData] = useState<WordType | null>(null);
   const [relatedWords, setRelatedWords] = useState<RelatedWord[]>([]);
   const [likeId, setLikedId] = useState(0);
   const [wordId, setWordId] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  const requestedWordId = location.state.wordId;
+  const requestedWordId = searchParams.get("wordId") || location.state?.wordId; // Use query param or state
 
   if (!wordId && !requestedWordId) {
     navigate("/");
   }
   if (requestedWordId && !wordId) {
-    setWordId(requestedWordId);
+    setWordId(Number(requestedWordId));
+  } else if (requestedWordId && wordId !== Number(requestedWordId)) {
+    setWordId(Number(requestedWordId));
   }
+
   const { id: userId, likedItems } = useSelector(
     (state: RootState) => state.user.user
   );
@@ -94,60 +98,33 @@ function VisualWord() {
   };
 
   return (
-    <div className="container regular-word">
+    <div className="visual-word-page">
       <SearchComponent show={true} />
-      <div className="word-wrapper">
-        <div className="word-info">
-          {userId && (
-            <div
-              className={`like ${Boolean(likeId) ? "liked" : ""}`}
-              onClick={() => toggleLike()}
-            >
-              <i className="fa-solid fa-heart"></i>
-            </div>
-          )}
-          <div className="title">{wordData?.title}</div>
-          <div className="category">{wordData?.category_name}</div>
-          <div className="translate">{wordData?.translate}</div>
-          <div className="tags">{wordData?.tags?.split(",").join(" ")}</div>
-        </div>
+      <div className="container">
         <div className="word-image">
           <img
             src={wordData?.image || "/img/word-image-placeholder.png"}
             alt="word-image"
           />
         </div>
-        <div className="word-description">
-          <p>{wordData?.description}</p>
+        <div className="word-info">
+          <div className="title">{wordData?.title}</div>
+          <div className="translate">{wordData?.translate}</div>
+          <div className="tags">{wordData?.tags?.split(",").join(" ")}</div>
+          <div className="description">{wordData?.description}</div>
+          <div
+            className="examples"
+            dangerouslySetInnerHTML={{ __html: wordData?.examples || "" }}
+          ></div>
+          {userId && (
+            <button
+              className={`like-button ${Boolean(likeId) ? "liked" : ""}`}
+              onClick={() => toggleLike()}
+            >
+              {Boolean(likeId) ? "Liked" : "Like"}
+            </button>
+          )}
         </div>
-        <div className="word-examples">
-          <p dangerouslySetInnerHTML={{ __html: wordData?.examples || "" }}></p>
-        </div>
-      </div>
-      <div className="relatedWords-wrapper">
-        {relatedWords &&
-          relatedWords.length > 0 &&
-          relatedWords
-            .filter((_, index) => index < 4)
-            .map((word) => (
-              <div
-                className="card"
-                key={`related-word-${word.id}`}
-                onClick={() => {
-                  setWordId(word.id);
-                  navigate(".", { state: { wordId: word.id } });
-                }}
-              >
-                <div className="title">
-                  <span>{word.title}</span>
-                  <img
-                    src={word.image || "/img/word-image-placeholder.png"}
-                    alt={word.title}
-                  />
-                  <span>{word.title}</span>
-                </div>
-              </div>
-            ))}
       </div>
     </div>
   );

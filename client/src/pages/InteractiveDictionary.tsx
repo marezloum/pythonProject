@@ -56,8 +56,9 @@ function InteractiveDictionaryPage() {
     fetchDictionary();
   }, [fetchDictionary]);
 
-  const handleImageClick = (id: number) => {
+  const handleImageClick = (id: number, text: string) => {
     setActiveWordId(id);
+    speak(text, "ru-RU"); // Play audio when clicking the image
   };
 
   useEffect(() => {
@@ -122,7 +123,7 @@ function InteractiveDictionaryPage() {
               <div
                 className="image-wrapper"
                 key={word.id}
-                onClick={() => handleImageClick(word.id)}
+                onClick={() => handleImageClick(word.id, word.title)}
               >
                 <img src={word.image} alt={`image-${word.title}`} />
               </div>

@@ -55,7 +55,7 @@ function Category() {
   }, [fetchItems]);
 
   return (
-    <main>
+    <main className="category-page">
       <div className="container">
         <div className="category-title">
           <h1>{categoryName}</h1>
@@ -66,7 +66,7 @@ function Category() {
               <div className="word" key={word.id}>
                 <Link to="/word" state={{ wordId: word.id }}>
                   <div className="title">{word.title}</div>
-                  <div className="transalte">{word.translate}</div>
+                  <div className="translate">{word.translate}</div>
                 </Link>
               </div>
             ))

@@ -28,7 +28,7 @@
   --color-lightgrey: #ccc;
   --color-ui: #999;
   --color-ui-hover: #666;
-  --cardWidth: calc(min(95vw, 1520px) / var(--up));
+  --cardWidth: calc(min(63vw, 1520px) / var(--up));
   --carouselWidth: calc(var(--cardWidth) * var(--num));
   --carouselLeftMargin: calc(2vw - var(--cardWidth));
 
@@ -40,7 +40,7 @@
 
 .carouselwrapper {
   overflow: hidden;
-  background: var(--color-lightgrey);
+  // background: var(--color-lightgrey);
   position: relative;
 
   .ui {
@@ -131,12 +131,12 @@
           font-size: 1.4rem;
           margin-bottom: 0;
           position: absolute;
-          bottom: 10px;
+          bottom: 20px;
           width: 100%;
           text-align: center;
           color: black;
           padding: 10px;
-          background-color: #cccccce0;
+          background-color: #f0763e;
         }
       }
     }

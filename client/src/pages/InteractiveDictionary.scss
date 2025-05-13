@@ -1,100 +1,111 @@
 .container.interactive-dictionary {
-  padding: 20px 5%;
-  text-align: center;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  padding: 20px;
+
   > .title {
-    font-size: 30px;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+
     h2 {
-      display: inline;
+      font-size: 2.5rem;
+      color: #333;
     }
+
     .like {
-      padding: 10px;
+      font-size: 1.5rem;
       cursor: pointer;
-      background-color: #043c5f;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 46px;
-      margin-left: 10px;
-      border-radius: 20px;
-      color: white;
+      color: #f76c6c;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
       &.liked {
-        color: #f0763e;
+        color: #6cf76c;
       }
     }
   }
 
   .content {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2%;
+    gap: 20px;
 
     .images {
+      flex: 1;
       display: grid;
-      width: 49%;
-      grid-template-columns: repeat(
-        auto-fill,
-        minmax(125px, 1fr)
-      ); // 5 колонок на больших экранах
-      gap: 0.5%;
-      height: fit-content;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
 
       .image-wrapper {
+        position: relative;
         cursor: pointer;
-        transition: transform 0.3s;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
 
         img {
           width: 100%;
-          height: auto;
-          border-radius: 0.5rem;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        &:hover {
-          transform: scale(1.05);
+          border-radius: 12px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
       }
     }
 
     .names {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      width: 49%;
-      height: inherit;
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
 
       .word {
-        width: 45%;
-        margin-bottom: 10px;
-        border: 2px solid #00a19a;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-        span {
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .active {
+          font-weight: bold;
+          color: #f76c6c;
+        }
+
+        .title {
           display: flex;
           justify-content: space-between;
-          flex-direction: column;
-          gap: 10px;
           align-items: center;
-          width: 100%;
-          padding: 12px;
-          color: black;
-          &.active {
-            color: #007bff; // Цвет для активного слова
-          }
-          > div {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            svg {
+          font-size: 1.5rem;
+          color: #333;
+
+          button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #555;
+            transition: color 0.3s ease;
+
+            &:hover {
+              color: #f76c6c;
             }
           }
+        }
+
+        .transalte {
+          font-size: 1.2rem;
+          color: #555;
+          margin-top: 5px;
         }
       }
     }

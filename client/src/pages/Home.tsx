@@ -33,14 +33,9 @@ function Home() {
 
   return (
     <main>
-      <div className="container">
+      <div className="container home">
         <div className="hero">
-          <div className="title">
-            <span>Русско-персидский онлайн словарь</span>
-            <span>فرهنگ آنلاین روسی به فارسی</span>
-          </div>
           <div className="search_area-wrapper">
-            <img src="./img/hero-image.svg" alt="" srcSet="" />
             <div className="search_area">
               <div className="selectors">
                 <span onClick={() => handleShowSearch()}>search</span>
@@ -52,93 +47,86 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="categories_wrapper">
-            <div className="categories-regular">
-              {allCategories &&
-                allCategories.length > 0 &&
-                allCategories
-                  .filter((_, index) => index < 4)
-                  .map((category) => (
-                    <div
-                      className="card"
-                      key={`regular-category-${category.id}`}
+        </div>
+        <div className="categories_wrapper">
+          <div className="categories-regular">
+            {allCategories &&
+              allCategories.length > 0 &&
+              allCategories
+                .filter((_, index) => index < 4)
+                .map((category) => (
+                  <div className="card" key={`regular-category-${category.id}`}>
+                    <Link
+                      to="/category"
+                      state={{
+                        categoryId: category.id,
+                      }}
                     >
-                      <Link
-                        to="/category"
-                        state={{
-                          categoryId: category.id,
-                        }}
-                      >
-                        <img
-                          src={
-                            category.image
-                              ? "/img/" + category.image
-                              : "/img/regular-category-placeholder.png"
-                          }
-                          alt={category.name}
-                        />
-                        <span>{category.name}</span>
-                      </Link>
-                    </div>
-                  ))}
-            </div>
-            {allInteractiveDictionaries &&
-              allInteractiveDictionaries.length > 0 && (
-                <div className="category-visual">
-                  <Carousel items={allInteractiveDictionaries} />
-                </div>
-              )}
-
-            <div className="categories-regular">
-              {allCategories &&
-                allCategories.length > 4 &&
-                allCategories
-                  .filter((_, index) => index >= 4 && index < 8)
-                  .map((category) => (
-                    <div
-                      className="card"
-                      key={`regular-category-${category.id}`}
-                    >
-                      <Link
-                        to="/category"
-                        state={{
-                          categoryId: category.id,
-                        }}
-                      >
-                        <img
-                          src={
-                            category.image
-                              ? "/img/" + category.image
-                              : "/img/regular-category-placeholder.png"
-                          }
-                          alt={category.name}
-                        />
-                        <span>{category.name}</span>
-                      </Link>
-                    </div>
-                  ))}
-            </div>
-            {allClickableDictionaries &&
-              allClickableDictionaries.length > 0 && (
-                <div className="clickable-dictionaries">
-                  {allClickableDictionaries.map((dictionary) => (
-                    <div className="card" key={dictionary.id}>
-                      <Link
-                        to="/clickable-visual-dictionary"
-                        state={{
-                          imageSrc: dictionary.imageSrc,
-                          title: dictionary.title,
-                          shapes: dictionary.shapes,
-                        }}
-                      >
-                        <img src={dictionary.imageSrc} alt={dictionary.title} />
-                        <span>{dictionary.title}</span>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              )}
+                      <img
+                        src={
+                          category.image
+                            ? "/img/" + category.image
+                            : "/img/regular-category-placeholder.png"
+                        }
+                        alt={category.name}
+                      />
+                      <span>{category.name}</span>
+                    </Link>
+                  </div>
+                ))}
           </div>
+          {allInteractiveDictionaries &&
+            allInteractiveDictionaries.length > 0 && (
+              <div className="category-visual">
+                <Carousel items={allInteractiveDictionaries} />
+              </div>
+            )}
+
+          {/* <div className="categories-regular">
+            {allCategories &&
+              allCategories.length > 4 &&
+              allCategories
+                .filter((_, index) => index >= 4 && index < 8)
+                .map((category) => (
+                  <div className="card" key={`regular-category-${category.id}`}>
+                    <Link
+                      to="/category"
+                      state={{
+                        categoryId: category.id,
+                      }}
+                    >
+                      <img
+                        src={
+                          category.image
+                            ? "/img/" + category.image
+                            : "/img/regular-category-placeholder.png"
+                        }
+                        alt={category.name}
+                      />
+                      <span>{category.name}</span>
+                    </Link>
+                  </div>
+                ))}
+          </div> */}
+          {allClickableDictionaries && allClickableDictionaries.length > 0 && (
+            <div className="clickable-dictionaries">
+              {allClickableDictionaries.map((dictionary) => (
+                <div className="card" key={dictionary.id}>
+                  <Link
+                    to="/clickable-visual-dictionary"
+                    state={{
+                      imageSrc: dictionary.imageSrc,
+                      title: dictionary.title,
+                      shapes: dictionary.shapes,
+                    }}
+                  >
+                    <img src={dictionary.imageSrc} alt={dictionary.title} />
+                    <span>{dictionary.title}</span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>

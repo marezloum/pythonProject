@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SearchComponent.scss"; // Import the SASS styles
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 
 // Define the type for the items returned from the API
 interface ResultItem {
@@ -14,6 +14,7 @@ interface ResultItem {
 const SearchComponent: React.FC<{ show: boolean }> = ({ show }) => {
   const [searchTerm, setSearchTerm] = useState<string>(""); //use state for search input(keyup)
   const [results, setResults] = useState<ResultItem[]>([]); //results of Api call
+  const location = useLocation(); // Get the current location
   useEffect(() => {
     const script = document.createElement("script");
 
@@ -73,8 +74,23 @@ const SearchComponent: React.FC<{ show: boolean }> = ({ show }) => {
                   <span>{result.likes ?? 0}</span>
                 </span>
                 <Link
-                  to={"word"}
+                  to={
+                    location.pathname === "/word"
+                      ? location.pathname
+                      : "/word"
+                  }
                   state={{ wordId: result.id }}
+                  onClick={(e) => {
+                    if (location.pathname === "/word") {
+                      e.preventDefault(); // Prevent navigation
+                      window.history.replaceState(
+                        null,
+                        "",
+                        `/word?wordId=${result.id}`
+                      ); // Update URL
+                      window.dispatchEvent(new Event("popstate")); // Trigger state update
+                    }
+                  }}
                   className="title"
                 >
                   <span>{result.title}</span>
