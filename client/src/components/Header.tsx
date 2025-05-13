@@ -21,7 +21,7 @@ import {
 
 function Header() {
   const { id: userId, user_role } = useSelector(
-    (state: RootState) => state.user.user
+    (state: RootState) => state.user
   );
   const location = useLocation();
   const navigate = useNavigate();

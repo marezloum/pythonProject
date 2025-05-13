@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 function Profile() {
-  const {id: userId} = useSelector((state: RootState) => state.user.user);
+  const {id: userId} = useSelector((state: RootState) => state.user);
   return (
     <div>
       <div>User ID: {userId}</div>

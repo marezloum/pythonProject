@@ -9,7 +9,7 @@ import { useCookies } from "react-cookie";
 
 const Login: React.FC = () => {
   let navigate = useNavigate();
-  const {id: userId} = useSelector((state: RootState) => state.user.user);
+  const {id: userId} = useSelector((state: RootState) => state.user);
   console.log(userId);
   useEffect(() => {
     if (userId) {

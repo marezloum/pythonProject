@@ -1,29 +1,32 @@
 // src/store/userSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type LikedItem = {
+  wordId: number;
+  likeId: number;
+};
+
 type UserState = {
-  id: string | null;
-  name: string;
-  user_role: string;
-  avatar_url: string;
+  id: number | null;
+  user_role: string | null;
   likedItems: {
     visualWords: { likeId: number; wordId: number; title: string }[] | [];
     interactiveDictionaries:
       | { likeId: number; dictionaryId: number; dictionaryName: string }[]
       | [];
+    interactiveWords: LikedItem[]; // Add interactive words
+    clickableDictionaries: LikedItem[]; // Add clickable dictionaries
   };
 };
 
-const initialState: { user: UserState } = {
-  user: {
-    id: null,
-    name: "",
-    user_role: "user",
-    avatar_url: "",
-    likedItems: {
-      visualWords: [],
-      interactiveDictionaries: [],
-    },
+const initialState: UserState = {
+  id: null,
+  user_role: null,
+  likedItems: {
+    visualWords: [],
+    interactiveDictionaries: [], // Initialize interactive dictionaries
+    interactiveWords: [], // Initialize interactive words
+    clickableDictionaries: [], // Initialize clickable dictionaries
   },
 };
 
@@ -31,14 +34,26 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
-      state.user = action.payload;
+    setUser(state, action: PayloadAction<UserState>) {
+      state.id = action.payload.id;
+      state.user_role = action.payload.user_role;
+      state.likedItems = action.payload.likedItems;
     },
-    clearUser: (state) => {
-      state.user = initialState.user;
+    clearUser(state) {
+      state.id = null;
+      state.user_role = null;
+      state.likedItems = {
+        visualWords: [],
+        interactiveDictionaries: [],
+        interactiveWords: [],
+        clickableDictionaries: [],
+      };
+    },
+    updateLikedItems(state, action: PayloadAction<UserState["likedItems"]>) {
+      state.likedItems = action.payload;
     },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, updateLikedItems } = userSlice.actions;
 export default userSlice.reducer;

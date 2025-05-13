@@ -88,10 +88,13 @@ app.get("/interactivedictionaries", (req, res) => {
 app.post("/interactivewords", (req, res) => {
   const categoryId = req.body.topicId;
   const categoryWordsQuery = `
-    SELECT w.id, w.title, w.translate, c.name AS category, w.image, w.tags
+    SELECT w.id, w.title, w.translate, c.name AS category, w.image, w.tags, COUNT(l.id) AS likes_count
     FROM interactive_words w
     JOIN interactive_dictionaries c ON w.dictionary_id = c.id 
-    WHERE w.dictionary_id ="${categoryId}"`;
+    LEFT JOIN likes l ON w.id = l.interactive_word_id
+    WHERE w.dictionary_id ="${categoryId}"
+    GROUP BY w.id
+    ORDER BY likes_count`;
 
   db.query(categoryWordsQuery, (err, results) => {
     if (err) {
@@ -262,7 +265,7 @@ app.post("/login", (req, res) => {
 });
 
 // Login Endpoint
-app.post("/fetchuser", (req, res) => {
+app.post("/fetchuser", async (req, res) => {
   const { userId } = req.body;
 
   const query = `
@@ -275,6 +278,10 @@ app.post("/fetchuser", (req, res) => {
     nw.title AS visual_word_title,
     idic.id AS interactive_dictionary_id,
     idic.name AS interactive_dictionary_name,
+    cdic.id AS clickable_dictionary_id,
+    cdic.title AS clickable_dictionary_name,
+    iw.id AS interactive_word_id,
+    iw.title AS interactive_word_title,
     lid.id AS like_id
   FROM users u
   LEFT JOIN roles r ON r.id = u.role
@@ -282,6 +289,8 @@ app.post("/fetchuser", (req, res) => {
   LEFT JOIN likes lid ON lid.user_id = u.id
   LEFT JOIN normalwords nw ON nw.id = lid.visual_word_id
   LEFT JOIN interactive_dictionaries idic ON idic.id = lid.interactive_dictionary_id
+  LEFT JOIN clickable_dictionary cdic ON cdic.id = lid.clickable_dictionary_id
+  LEFT JOIN interactive_words iw ON iw.id = lid.interactive_word_id
   WHERE u.id = ?`;
 
   db.query(query, [userId], (error, results) => {
@@ -306,6 +315,20 @@ app.post("/fetchuser", (req, res) => {
             likeId: row.like_id,
             dictionaryId: row.interactive_dictionary_id,
             dictionaryName: row.interactive_dictionary_name,
+          })),
+        interactiveWords: results
+          .filter((row) => row.interactive_word_id)
+          .map((row) => ({
+            likeId: row.like_id,
+            wordId: row.interactive_word_id,
+            wordTitle: row.interactive_word_title,
+          })),
+        clickableDictionaries: results
+          .filter((row) => row.clickable_dictionary_id)
+          .map((row) => ({
+            likeId: row.like_id,
+            dictionaryId: row.clickable_dictionary_id,
+            dictionaryName: row.clickable_dictionary_name,
           })),
       };
       user.likedItems = likedItems;
@@ -546,27 +569,37 @@ app.post(
         console.error(err);
         return res.status(500).json({ message: "Error inserting data" });
       }
-      res
-        .status(201)
-        .json({
-          message: "dictionary added successfully",
-          id: results.insertId,
-        });
+      res.status(201).json({
+        message: "dictionary added successfully",
+        id: results.insertId,
+      });
     });
   }
 );
 
 app.post("/like", (req, res) => {
-  const { userId, visualWordId, interactiveDictionaryId } = req.body;
+  const {
+    userId,
+    visualWordId,
+    interactiveDictionaryId,
+    clickable_dictionary_id,
+    interactive_word_id,
+  } = req.body;
 
   // Check if the user already liked the visual word
   const checkLikeQuery = `
     SELECT * FROM likes 
-    WHERE user_id = ? AND (visual_word_id = ? OR interactive_dictionary_id = ?)`;
+    WHERE user_id = ? AND (visual_word_id = ? OR interactive_dictionary_id = ? OR clickable_dictionary_id = ? OR interactive_word_id = ?)`;
 
   db.query(
     checkLikeQuery,
-    [userId, visualWordId, interactiveDictionaryId],
+    [
+      userId,
+      visualWordId,
+      interactiveDictionaryId,
+      clickable_dictionary_id,
+      interactive_word_id,
+    ],
     (err, results) => {
       if (err) {
         console.error(err);
@@ -579,12 +612,18 @@ app.post("/like", (req, res) => {
 
       // Insert like
       const insertLikeQuery = `
-      INSERT INTO likes (user_id, visual_word_id, interactive_dictionary_id) 
-      VALUES (?, ?, ?)`;
+      INSERT INTO likes (user_id, visual_word_id, interactive_dictionary_id, clickable_dictionary_id, interactive_word_id) 
+      VALUES (?, ?, ?, ?, ?)`;
 
       db.query(
         insertLikeQuery,
-        [userId, visualWordId, interactiveDictionaryId],
+        [
+          userId,
+          visualWordId,
+          interactiveDictionaryId,
+          clickable_dictionary_id,
+          interactive_word_id,
+        ],
         (err, result) => {
           if (err) {
             console.error(err);
@@ -654,7 +693,6 @@ app.get("/clickable-dictionaries", (req, res) => {
     }
 
     const dictionaries = results;
-    console.log(dictionaries)
 
     res.json(dictionaries);
   });

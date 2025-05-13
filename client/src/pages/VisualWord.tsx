@@ -43,7 +43,7 @@ function VisualWord() {
   }
 
   const { id: userId, likedItems } = useSelector(
-    (state: RootState) => state.user.user
+    (state: RootState) => state.user
   );
 
   const getWordData = useCallback(async () => {

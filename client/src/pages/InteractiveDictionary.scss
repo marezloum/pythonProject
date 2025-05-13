@@ -1,5 +1,5 @@
 .container.interactive-dictionary {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background: linear-gradient(135deg, #fdfbfb, #ebedee);
   padding: 20px;
 
@@ -39,8 +39,10 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
+      height: fit-content;
 
       .image-wrapper {
+        height: fit-content;
         position: relative;
         cursor: pointer;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -106,6 +108,34 @@
           font-size: 1.2rem;
           color: #555;
           margin-top: 5px;
+        }
+
+        .like {
+          font-size: 26px;
+          cursor: pointer;
+          color: #f76c6c;
+          transition: transform 0.3s ease;
+          text-align: right;
+          position: relative;
+          width: fit-content;
+          justify-self: end;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+          svg {
+          }
+
+          &.liked {
+            color: #6cf76c;
+          }
+          .likes-count {
+            position: absolute;
+            right: 9px;
+            color: #043c5f;
+            font-size: 15px;
+            top: 7px;
+          }
         }
       }
     }
