@@ -276,12 +276,17 @@ app.post("/fetchuser", async (req, res) => {
     a.url AS avatar_url,
     nw.id AS visual_word_id,
     nw.title AS visual_word_title,
+    nw.translate AS visual_word_translate,
+    nw.image AS visual_word_image,
     idic.id AS interactive_dictionary_id,
     idic.name AS interactive_dictionary_name,
     cdic.id AS clickable_dictionary_id,
     cdic.title AS clickable_dictionary_name,
+    cdic.imageSrc AS clickable_dictionary_imageSrc,
     iw.id AS interactive_word_id,
     iw.title AS interactive_word_title,
+    iw.translate AS interactive_word_translation,
+    iw.image AS interactive_word_image,
     lid.id AS like_id
   FROM users u
   LEFT JOIN roles r ON r.id = u.role
@@ -308,6 +313,8 @@ app.post("/fetchuser", async (req, res) => {
             likeId: row.like_id,
             wordId: row.visual_word_id,
             title: row.visual_word_title,
+            translate: row.visual_word_translate,
+            image: row.visual_word_image,
           })),
         interactiveDictionaries: results
           .filter((row) => row.interactive_dictionary_id)
@@ -315,6 +322,7 @@ app.post("/fetchuser", async (req, res) => {
             likeId: row.like_id,
             dictionaryId: row.interactive_dictionary_id,
             dictionaryName: row.interactive_dictionary_name,
+            
           })),
         interactiveWords: results
           .filter((row) => row.interactive_word_id)
@@ -322,6 +330,8 @@ app.post("/fetchuser", async (req, res) => {
             likeId: row.like_id,
             wordId: row.interactive_word_id,
             wordTitle: row.interactive_word_title,
+            translate: row.interactive_word_translation,
+            image: row.interactive_word_image,
           })),
         clickableDictionaries: results
           .filter((row) => row.clickable_dictionary_id)
@@ -329,6 +339,7 @@ app.post("/fetchuser", async (req, res) => {
             likeId: row.like_id,
             dictionaryId: row.clickable_dictionary_id,
             dictionaryName: row.clickable_dictionary_name,
+            imageSrc: row.clickable_dictionary_imageSrc,
           })),
       };
       user.likedItems = likedItems;
@@ -695,6 +706,166 @@ app.get("/clickable-dictionaries", (req, res) => {
     const dictionaries = results;
 
     res.json(dictionaries);
+  });
+});
+
+// Change Password Endpoint
+app.post("/change-password", async (req, res) => {
+  const { userId, currentPassword, newPassword } = req.body;
+
+  if (!userId || !currentPassword || !newPassword) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  // Query to fetch the user's current password from the database
+  const query = `SELECT password FROM users WHERE id = ?`;
+
+  db.query(query, [userId], async (error, results) => {
+    if (error) {
+      console.error("Database query error:", error);
+      return res.status(500).json({ error: "Database error." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const user = results[0];
+
+    // Compare the provided current password with the hashed password in the database
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) {
+      return res.status(400).json({ error: "Current password is incorrect." });
+    }
+
+    // Hash the new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password in the database
+    const updateQuery = `UPDATE users SET password = ? WHERE id = ?`;
+
+    db.query(updateQuery, [hashedNewPassword, userId], (updateError) => {
+      if (updateError) {
+        console.error("Error updating password:", updateError);
+        return res.status(500).json({ error: "Failed to update password." });
+      }
+
+      res.status(200).json({ message: "Password updated successfully." });
+    });
+  });
+});
+
+// Endpoint for admin to update a user's password
+app.post("/admin-change-password", async (req, res) => {
+  const { userId, newPassword } = req.body;
+
+  if (!userId || !newPassword) {
+    return res.status(400).json({ error: "User ID and new password are required." });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const query = `UPDATE users SET password = ? WHERE id = ?`;
+
+    db.query(query, [hashedPassword, userId], (err) => {
+      if (err) {
+        console.error("Database query error:", err);
+        return res.status(500).json({ error: "Database error." });
+      }
+      res.status(200).json({ message: "Password updated successfully." });
+    });
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+// Endpoint for admin to change a user's role
+app.post("/change-role", (req, res) => {
+  const { userId, newRole } = req.body;
+
+  if (!userId || !newRole) {
+    return res.status(400).json({ error: "User ID and new role are required." });
+  }
+
+  // Query to get the role ID from the roles table
+  const getRoleIdQuery = `SELECT id FROM roles WHERE name = ?`;
+
+  db.query(getRoleIdQuery, [newRole], (roleErr, roleResults) => {
+    if (roleErr) {
+      console.error("Database query error:", roleErr);
+      return res.status(500).json({ error: "Database error." });
+    }
+
+    if (roleResults.length === 0) {
+      return res.status(400).json({ error: "Invalid role." });
+    }
+
+    const roleId = roleResults[0].id;
+
+    // Ensure at least one admin exists
+    const checkAdminQuery = `SELECT COUNT(*) AS adminCount FROM users WHERE role = 1`;
+
+    db.query(checkAdminQuery, (adminErr, adminResults) => {
+      if (adminErr) {
+        console.error("Database query error:", adminErr);
+        return res.status(500).json({ error: "Database error." });
+      }
+
+      const adminCount = adminResults[0].adminCount;
+
+      if (adminCount === 1 && roleId !== 1) {
+        // Check if the user being updated is the only admin
+        const isOnlyAdminQuery = `SELECT role FROM users WHERE id = ?`;
+
+        db.query(isOnlyAdminQuery, [userId], (onlyAdminErr, onlyAdminResults) => {
+          if (onlyAdminErr) {
+            console.error("Database query error:", onlyAdminErr);
+            return res.status(500).json({ error: "Database error." });
+          }
+
+          if (onlyAdminResults.length > 0 && onlyAdminResults[0].role === 1) {
+            return res.status(400).json({
+              error: "At least one admin must exist. Cannot remove the last admin.",
+            });
+          }
+
+          // Proceed to update the role
+          updateUserRole(userId, roleId, res);
+        });
+      } else {
+        // Proceed to update the role
+        updateUserRole(userId, roleId, res);
+      }
+    });
+  });
+});
+
+// Helper function to update the user's role
+function updateUserRole(userId, roleId, res) {
+  const updateRoleQuery = `UPDATE users SET role = ? WHERE id = ?`;
+
+  db.query(updateRoleQuery, [roleId, userId], (updateErr) => {
+    if (updateErr) {
+      console.error("Database query error:", updateErr);
+      return res.status(500).json({ error: "Database error." });
+    }
+    res.status(200).json({ message: "Role updated successfully." });
+  });
+}
+
+// Add endpoint to fetch all users
+app.get("/users", (req, res) => {
+  const query = `SELECT u.id, u.display_name, u.email, u.role, r.name AS user_role FROM users u
+  LEFT JOIN roles r ON r.id = u.role`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Database query error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
   });
 });
 

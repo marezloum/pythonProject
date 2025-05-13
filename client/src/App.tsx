@@ -6,13 +6,13 @@ import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Header from "./components/Header";
-import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import VisualWord from "./pages/VisualWord";
 import Category from "./pages/Category";
 import InteractiveDictionaryPage from "./pages/InteractiveDictionary";
 import AddWord from "./pages/Addword";
 import ClickableVisualDictionary from "./pages/ClickableVisualDictionary";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -22,7 +22,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/word" element={<VisualWord />} />
           <Route
             path="/interactivedictionary"
@@ -34,6 +33,7 @@ function App() {
             path="/clickable-visual-dictionary"
             element={<ClickableVisualDictionary />}
           />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />
       </Router>

@@ -10,12 +10,31 @@ type UserState = {
   id: number | null;
   user_role: string | null;
   likedItems: {
-    visualWords: { likeId: number; wordId: number; title: string }[] | [];
+    visualWords:
+      | {
+          likeId: number;
+          wordId: number;
+          title: string;
+          image: string;
+          translate: string;
+        }[]
+      | [];
     interactiveDictionaries:
       | { likeId: number; dictionaryId: number; dictionaryName: string }[]
       | [];
-    interactiveWords: LikedItem[]; // Add interactive words
-    clickableDictionaries: LikedItem[]; // Add clickable dictionaries
+    interactiveWords: {
+      likeId: number;
+      wordId: number;
+      wordTitle: string;
+      image: string;
+      translate: string;
+    }[]; // Add interactive words
+    clickableDictionaries: {
+      likeId: number;
+      dictionaryId: number;
+      dictionaryName: string;
+      imageSrc: string;
+    }[]; // Add clickable dictionaries
   };
 };
 

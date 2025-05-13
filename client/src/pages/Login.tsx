@@ -37,7 +37,6 @@ const Login: React.FC = () => {
         password: loginPassword,
       });
       setLoginMessage(response.data.message);
-      dispatch(setUser(response.data.user)); // Dispatch user to Redux store
       setCookie("userId", response.data.user.id);
       navigate("/");
     } catch (error: any) {

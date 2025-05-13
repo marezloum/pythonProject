@@ -15,8 +15,8 @@ type InteractiveWord = {
   title: string;
   translate: string;
   category: string;
-  image: string;
-  tags: string;
+  image?: string;
+  tags?: string;
 };
 
 function InteractiveDictionaryPage() {
@@ -142,22 +142,25 @@ function InteractiveDictionaryPage() {
             userId,
             interactive_word_id: wordId,
           });
-          dispatch(
-            updateLikedItems({
-              ...likedItems,
-              interactiveWords: [
-                ...likedItems.interactiveWords,
-                { wordId, likeId: response.data.likeId },
-              ],
-            })
-          );
-          setWords((prevWords) =>
-            prevWords.map((word) =>
-              word.id === wordId
-                ? { ...word, likes_count: word.likes_count + 1 }
-                : word
-            )
-          );
+          const likedWord = words.find((w) => w.id === wordId);
+          if (likedWord) {
+            const newList = { ...likedItems };
+            newList.interactiveWords.push({
+              likeId: response.data.likeId,
+              wordId,
+              wordTitle: likedWord.title,
+              translate: likedWord.translate,
+              image: likedWord.image!,
+            });
+            dispatch(updateLikedItems(newList));
+            setWords((prevWords) =>
+              prevWords.map((word) =>
+                word.id === wordId
+                  ? { ...word, likes_count: word.likes_count + 1 }
+                  : word
+              )
+            );
+          }
         }
       } catch (error) {
         console.error("Error toggling like:", error);
