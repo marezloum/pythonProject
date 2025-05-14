@@ -40,7 +40,7 @@ function App() {
         <Footer />
         {/* Floating Telegram Button */}
         <a
-          href="https://web.telegram.org/"
+          href="https://t.me/marezloum_bot"
           className="floating-telegram-btn"
           target="_blank"
           rel="noopener noreferrer"
