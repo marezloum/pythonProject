@@ -35,3 +35,47 @@ body {
   margin: 0 auto;
   max-width: 1600px;
 }
+.floating-telegram-btn {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 2000;
+  width: 64px;
+  height: 64px;
+  background: #cfe6e4;
+  border: 1px solid #64b8c4;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(34, 158, 217, 0.25);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    background: #0088cc;
+    box-shadow: 0 8px 32px rgba(34, 158, 217, 0.35);
+    transform: translateY(-4px) scale(1.07);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .floating-telegram-btn {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
+    svg {
+      width: 28px !important;
+      height: 28px !important;
+    }
+  }
+}

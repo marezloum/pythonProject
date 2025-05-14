@@ -75,73 +75,78 @@ function AddInteractiveWord() {
     <div className="form">
       <h3>Interactive Word</h3>
       <form>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formState.title}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              title: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
-        <label htmlFor="translate">Translate:</label>
-        <input
-          type="text"
-          id="translate"
-          name="translate"
-          value={formState.translate}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              translate: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
-        <label htmlFor="dictionary">dictionary:</label>
-        <select
-          id="dictionary"
-          name="dictionary"
-          value={formState.dictionary ?? ""}
-          onChange={handleDictionaryChange}
-        >
-          <option value="">select one</option>
-          {allInteractiveDictionaries?.map((dictionary) => (
-            <option key={"dictionary-" + dictionary.name} value={dictionary.id}>{dictionary.name}</option>
-          ))}
-        </select>
-        <br />
-        <label htmlFor="tags">tags:</label>
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          value={formState.tags || ""}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              tags: e.target.value,
-            }))
-          }
-        />
-        <br />
+        <div className="form-row">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formState.title}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                title: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="translate">Translate:</label>
+          <input
+            type="text"
+            id="translate"
+            name="translate"
+            value={formState.translate}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                translate: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="dictionary">dictionary:</label>
+          <select
+            id="dictionary"
+            name="dictionary"
+            value={formState.dictionary ?? ""}
+            onChange={handleDictionaryChange}
+          >
+            <option value="">select one</option>
+            {allInteractiveDictionaries?.map((dictionary) => (
+              <option key={"dictionary-" + dictionary.name} value={dictionary.id}>{dictionary.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-row">
+          <label htmlFor="tags">tags:</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value={formState.tags || ""}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                tags: e.target.value,
+              }))
+            }
+          />
+        </div>
         <h4>Media Files</h4>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <br />
-        <button type="button" onClick={(e) => handleSubmit()}>
+        <div className="form-row">
+          <label htmlFor="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+        <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
           Add Word
         </button>
         <p>{message}</p>

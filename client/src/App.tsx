@@ -13,6 +13,8 @@ import InteractiveDictionaryPage from "./pages/InteractiveDictionary";
 import AddWord from "./pages/Addword";
 import ClickableVisualDictionary from "./pages/ClickableVisualDictionary";
 import ProfilePage from "./pages/ProfilePage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   return (
@@ -36,6 +38,16 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />
+        {/* Floating Telegram Button */}
+        <a
+          href="https://web.telegram.org/"
+          className="floating-telegram-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Contact us on Telegram"
+        >
+          <FontAwesomeIcon icon={faMessage} size="2x" />
+        </a>
       </Router>
     </Provider>
   );

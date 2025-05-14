@@ -10,20 +10,20 @@ function AddCategory() {
   const allCategories = useSelector(
     (state: RootState) => state.categories.allCategories
   );
-    const [formState, setFormState] = useState<CategoryFormState>({
-      name: "",
-      imageFile: null,
-    });
-    const [message, setMessage] = useState("");
+  const [formState, setFormState] = useState<CategoryFormState>({
+    name: "",
+    imageFile: null,
+  });
+  const [message, setMessage] = useState("");
 
-      const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-          setFormState((prevState) => ({
-            ...prevState,
-            imageFile: e.target.files![0],
-          }));
-        }
-      };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFormState((prevState) => ({
+        ...prevState,
+        imageFile: e.target.files![0],
+      }));
+    }
+  };
 
   const handleSubmit = async () => {
     if (
@@ -39,47 +39,50 @@ function AddCategory() {
     formData.append("name", formState.name);
 
     try {
-            const response = await fetch(
-"http://localhost:3008/addcategory", {
-  method: "POST",
-  body: formData,
-});
-const json = await response.json();
-setMessage(json.message);
-} catch (error) {
-console.error("Error uploading file:", error);
-}
+      const response = await fetch(
+        "http://localhost:3008/addcategory", {
+          method: "POST",
+          body: formData,
+        });
+      const json = await response.json();
+      setMessage(json.message);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
 
   return (
     <div className="form">
       <h3>Category</h3>
       <form>
-        <label htmlFor="name">name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formState.name}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              name: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
+        <div className="form-row">
+          <label htmlFor="name">name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formState.name}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                name: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
         <h4>Media Files</h4>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
+        <div className="form-row">
+          <label htmlFor="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
         <br />
-        <button type="button" onClick={(e) => handleSubmit()}>
+        <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
           Add Category
         </button>
         <p>{message}</p>

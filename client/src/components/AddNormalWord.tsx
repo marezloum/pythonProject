@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-
+import "./AddNormalWord.scss";
 type NomralWordFormState = {
   title: string;
   translate: string;
@@ -95,123 +95,132 @@ function AddNormalWord() {
     <div className="form">
       <h3>Normal Word</h3>
       <form>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formState.title}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              title: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
-        <label htmlFor="translate">Translate:</label>
-        <input
-          type="text"
-          id="translate"
-          name="translate"
-          value={formState.translate}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              translate: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          name="description"
-          value={formState.description}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              description: e.target.value,
-            }))
-          }
-        ></textarea>
-        <br />
-        <label htmlFor="dictionary">Dictionary:</label>
-        <input
-          type="text"
-          id="dictionary"
-          name="dictionary"
-          value={formState.dictionary || ""}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              dictionary: e.target.value,
-            }))
-          }
-        />
-        <br />
-        <label htmlFor="tags">tags:</label>
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          value={formState.tags || ""}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              tags: e.target.value,
-            }))
-          }
-        />
-        <br />
-        <label htmlFor="category">Category:</label>
-        <select
-          id="category"
-          name="category"
-          value={formState.category ?? ""}
-          onChange={handleCategoryChange}
-        >
-          <option value="">Select a category</option>
-          {allCategories?.map((category) => (
-            <option key={"category-" + category.name} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-        <br />
-        <label htmlFor="examples">Examples:</label>
-        <textarea
-          id="examples"
-          name="examples"
-          value={formState.examples}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              examples: e.target.value,
-            }))
-          }
-        ></textarea>
-        <br />
+        <div className="form-row">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formState.title}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                title: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="translate">Translate:</label>
+          <input
+            type="text"
+            id="translate"
+            name="translate"
+            value={formState.translate}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                translate: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="description">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formState.description}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                description: e.target.value,
+              }))
+            }
+          ></textarea>
+        </div>
+        <div className="form-row">
+          <label htmlFor="dictionary">Dictionary:</label>
+          <input
+            type="text"
+            id="dictionary"
+            name="dictionary"
+            value={formState.dictionary || ""}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                dictionary: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="tags">tags:</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value={formState.tags || ""}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                tags: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            name="category"
+            value={formState.category ?? ""}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select a category</option>
+            {allCategories?.map((category) => (
+              <option key={"category-" + category.name} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-row">
+          <label htmlFor="examples">Examples:</label>
+          <textarea
+            id="examples"
+            name="examples"
+            value={formState.examples}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                examples: e.target.value,
+              }))
+            }
+          ></textarea>
+        </div>
         <h4>Media Files</h4>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <br />
-        <label htmlFor="video">Video:</label>
-        <input
-          type="file"
-          id="video"
-          accept="video/*"
-          onChange={handleVideoChange}
-        />
-        <br />
-        <button type="button" onClick={(e) => handleSubmit()}>
+        <div className="form-row">
+          <label htmlFor="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+        <div className="form-row">
+          <label htmlFor="video">Video:</label>
+          <input
+            type="file"
+            id="video"
+            accept="video/*"
+            onChange={handleVideoChange}
+          />
+        </div>
+        <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
           Add Word
         </button>{" "}
         <p>{message}</p>

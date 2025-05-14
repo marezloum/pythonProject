@@ -11,36 +11,39 @@ function AddWord() {
   };
 
   return (
-    <div className="container">
-      <button
-        onClick={() => handleSelectForm("normal")}
-        className={`form-button ${selectedForm === "normal" ? "active" : ""}`}
-      >
-        Add Normal Word
-      </button>
-      <button
-        onClick={() => handleSelectForm("interactive")}
-        className={`form-button ${
-          selectedForm === "interactive" ? "active" : ""
-        }`}
-      >
-        Add Interactive Word
-      </button>
-      <button
-        onClick={() => handleSelectForm("category")}
-        className={`form-button ${selectedForm === "category" ? "active" : ""}`}
-      >
-        Add Category
-      </button>
-      <button
-        onClick={() => handleSelectForm("interactiveDictionary")}
-        className={`form-button ${
-          selectedForm === "interactiveDictionary" ? "active" : ""
-        }`}
-      >
-        Add Interactive Dictionary
-      </button>
-
+    <div className="container add-word">
+      <div className="switch-row">
+        <button
+          onClick={() => handleSelectForm("normal")}
+          className={`form-button ${selectedForm === "normal" ? "active" : ""}`}
+        >
+          Add Normal Word
+        </button>
+        <button
+          onClick={() => handleSelectForm("interactive")}
+          className={`form-button ${
+            selectedForm === "interactive" ? "active" : ""
+          }`}
+        >
+          Add Interactive Word
+        </button>
+        <button
+          onClick={() => handleSelectForm("category")}
+          className={`form-button ${
+            selectedForm === "category" ? "active" : ""
+          }`}
+        >
+          Add Category
+        </button>
+        <button
+          onClick={() => handleSelectForm("interactiveDictionary")}
+          className={`form-button ${
+            selectedForm === "interactiveDictionary" ? "active" : ""
+          }`}
+        >
+          Add Interactive Dictionary
+        </button>
+      </div>
       {selectedForm === "normal" && <AddNormalWord />}
 
       {selectedForm === "interactive" && <AddInteractiveWord />}

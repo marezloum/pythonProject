@@ -58,31 +58,38 @@ function AddInteractiveDictionary() {
     <div className="form">
       <h3>Interactive Dictionary</h3>
       <form>
-        <label htmlFor="name">name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formState.name}
-          onChange={(e) =>
-            setFormState((prevState) => ({
-              ...prevState,
-              name: e.target.value,
-            }))
-          }
-          required
-        />
-        <br />
+        <div className="form-row">
+          <label htmlFor="name">name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formState.name}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                name: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
         <h4>Media Files</h4>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
+        <div className="form-row">
+          <label htmlFor="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>{" "}
         <br />
-        <button type="button" onClick={(e) => handleSubmit()}>
+        <button
+          className="form-button"
+          type="button"
+          onClick={(e) => handleSubmit()}
+        >
           Add Interactive Dictionay
         </button>{" "}
         <p>{message}</p>

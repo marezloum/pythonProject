@@ -1,6 +1,6 @@
 .category-page {
   body {
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     margin: 0;
     padding: 0;
@@ -25,6 +25,7 @@
 
   .category-items_wrapper {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 
@@ -68,4 +69,3 @@
     }
   }
 }
-
