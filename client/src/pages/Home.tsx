@@ -49,8 +49,152 @@ function Home() {
           </div>
         </div>
         <div className="categories_wrapper">
+          <h2>Лексико-иллюстративный словарь</h2>
+          <p>
+            Откройте каждое слово — с подробным объяснением, переводом и
+            наглядной иллюстрацией.
+          </p>
           <div className="categories-regular">
-            {allCategories &&
+            {allCategories && allCategories.length > 0 && (
+              <>
+                <div className="row">
+                  <div
+                    className="card"
+                    key={`regular-category-${allCategories[0].id}`}
+                  >
+                    <Link
+                      to="/category"
+                      state={{
+                        categoryId: allCategories[0].id,
+                      }}
+                    >
+                      <img
+                        src={
+                          allCategories[0].image
+                            ? "/img/" + allCategories[0].image
+                            : "/img/regular-category-placeholder.png"
+                        }
+                        alt={allCategories[0].name}
+                      />
+                      <span>{allCategories[0].name}</span>
+                    </Link>
+                  </div>
+                  <div className="double-card">
+                    <div
+                      className="card"
+                      key={`regular-category-${allCategories[1].id}`}
+                    >
+                      <Link
+                        to="/category"
+                        state={{
+                          categoryId: allCategories[1].id,
+                        }}
+                      >
+                        <img
+                          src={
+                            allCategories[1].image
+                              ? "/img/" + allCategories[1].image
+                              : "/img/regular-category-placeholder.png"
+                          }
+                          alt={allCategories[1].name}
+                        />
+                        <span>{allCategories[1].name}</span>
+                      </Link>
+                    </div>
+                    <div
+                      className="card"
+                      key={`regular-category-${allCategories[2].id}`}
+                    >
+                      <Link
+                        to="/category"
+                        state={{
+                          categoryId: allCategories[2].id,
+                        }}
+                      >
+                        <img
+                          src={
+                            allCategories[2].image
+                              ? "/img/" + allCategories[2].image
+                              : "/img/regular-category-placeholder.png"
+                          }
+                          alt={allCategories[2].name}
+                        />
+                        <span>{allCategories[2].name}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="double-card">
+                    <div
+                      className="card"
+                      key={`regular-category-${allCategories[1].id}`}
+                    >
+                      <Link
+                        to="/category"
+                        state={{
+                          categoryId: allCategories[1].id,
+                        }}
+                      >
+                        <img
+                          src={
+                            allCategories[1].image
+                              ? "/img/" + allCategories[1].image
+                              : "/img/regular-category-placeholder.png"
+                          }
+                          alt={allCategories[1].name}
+                        />
+                        <span>{allCategories[1].name}</span>
+                      </Link>
+                    </div>
+                    <div
+                      className="card"
+                      key={`regular-category-${allCategories[2].id}`}
+                    >
+                      <Link
+                        to="/category"
+                        state={{
+                          categoryId: allCategories[2].id,
+                        }}
+                      >
+                        <img
+                          src={
+                            allCategories[2].image
+                              ? "/img/" + allCategories[2].image
+                              : "/img/regular-category-placeholder.png"
+                          }
+                          alt={allCategories[2].name}
+                        />
+                        <span>{allCategories[2].name}</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div
+                    className="card"
+                    key={`regular-category-${allCategories[3].id}`}
+                  >
+                    <Link
+                      to="/category"
+                      state={{
+                        categoryId: allCategories[3].id,
+                      }}
+                    >
+                      <img
+                        src={
+                          allCategories[3].image
+                            ? "/img/" + allCategories[3].image
+                            : "/img/regular-category-placeholder.png"
+                        }
+                        alt={allCategories[3].name}
+                      />
+                      <span>{allCategories[3].name}</span>
+                    </Link>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* {allCategories &&
               allCategories.length > 0 &&
               allCategories
                 .filter((_, index) => index < 4)
@@ -73,11 +217,40 @@ function Home() {
                       <span>{category.name}</span>
                     </Link>
                   </div>
-                ))}
+                ))} */}
           </div>
+
+          {allClickableDictionaries && allClickableDictionaries.length > 0 && (
+            <div className="clickable-dictionaries">
+              {allClickableDictionaries.map((dictionary) => (
+                <div className="card" key={dictionary.id}>
+                  <img src={dictionary.imageSrc} alt={dictionary.title} />
+                  <div>
+                    <h2>Ономасиологический словарь (интерактивная картинка)</h2>
+                    <p>
+                      Кликайте на части изображения — и узнайте, как это
+                      называется на русском и персидском.
+                    </p>
+                    <Link
+                      to="/clickable-visual-dictionary"
+                      state={{
+                        imageSrc: dictionary.imageSrc,
+                        title: dictionary.title,
+                        shapes: dictionary.shapes,
+                      }}
+                    >
+                      <button>открыть</button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {allInteractiveDictionaries &&
             allInteractiveDictionaries.length > 0 && (
               <div className="category-visual">
+                <h2>Ассоциативно-визуальный словарь</h2>
+                <p>Исследуйте тему: список слов связан с изображением. Нажимайте — и увидите соответствие.</p>
                 <Carousel items={allInteractiveDictionaries} />
               </div>
             )}
@@ -108,25 +281,6 @@ function Home() {
                   </div>
                 ))}
           </div> */}
-          {allClickableDictionaries && allClickableDictionaries.length > 0 && (
-            <div className="clickable-dictionaries">
-              {allClickableDictionaries.map((dictionary) => (
-                <div className="card" key={dictionary.id}>
-                  <Link
-                    to="/clickable-visual-dictionary"
-                    state={{
-                      imageSrc: dictionary.imageSrc,
-                      title: dictionary.title,
-                      shapes: dictionary.shapes,
-                    }}
-                  >
-                    <img src={dictionary.imageSrc} alt={dictionary.title} />
-                    <span>{dictionary.title}</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </main>

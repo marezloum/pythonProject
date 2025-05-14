@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: url(/fonts//flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+  src: url(/fonts//flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format("woff2");
 }
 
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -17,7 +17,7 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -webkit-font-feature-settings: 'liga';
+  -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 }
 :root {
@@ -28,7 +28,7 @@
   --color-lightgrey: #ccc;
   --color-ui: #999;
   --color-ui-hover: #666;
-  --cardWidth: calc(min(63vw, 1520px) / var(--up));
+  --cardWidth: calc(min(63vw, 700px) / var(--up));
   --carouselWidth: calc(var(--cardWidth) * var(--num));
   --carouselLeftMargin: calc(2vw - var(--cardWidth));
 
@@ -40,8 +40,10 @@
 
 .carouselwrapper {
   overflow: hidden;
-  // background: var(--color-lightgrey);
   position: relative;
+  height: 100%;
+  border: 3px solid #1897ae;
+  border-radius: 14px;
 
   .ui {
     position: absolute;
@@ -104,39 +106,46 @@
       width: calc(var(--cardWidth) - var(--card-margin) * 2);
       box-shadow: 0px 1px 2px 0px var(--card-shadow);
       margin: var(--card-margin);
-      height: 307px;
-      border: 3px solid #002d49;
-      border-radius: 20px;
+      height: 210px;
+      border: 1px solid #0e99ff;
+      border-radius: 8px;
       z-index: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-direction: column;
       text-align: center;
+      padding: 12px;
+      background: #ffffff;
       a {
         text-decoration: none;
         width: 100%;
         height: 100%;
         position: relative;
+        padding: 10px 20px;
+        background: #1195ad;
+        border-radius: 8px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
 
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          border-radius: 20px;
+          border-radius: 8px;
         }
 
         p {
           font-family: "Open Sans Condensed", sans-serif;
-          font-size: 1.4rem;
-          margin-bottom: 0;
           position: absolute;
           bottom: 20px;
-          width: 100%;
-          text-align: center;
           color: black;
-          padding: 10px;
+          padding: 2px 11px;
           background-color: #f0763e;
+          border-radius: 8px;
+          max-width: calc(100% - 70px);
+          font-size: 16px;
         }
       }
     }

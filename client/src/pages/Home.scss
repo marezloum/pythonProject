@@ -166,7 +166,7 @@ $menu-icon-transition: transform 300ms cubic-bezier(0.52, -0.8, 0.52, 0.52);
     width: 100%;
     height: 100%;
     color: white;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 
     .search_area-wrapper {
       width: 100%;
@@ -205,77 +205,158 @@ $menu-icon-transition: transform 300ms cubic-bezier(0.52, -0.8, 0.52, 0.52);
     width: 100%;
     padding-bottom: 40px;
     margin-bottom: 40px;
+    > h2 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    > p {
+      text-align: center;
+      max-width: 410px;
+      margin: 0 auto 20px;
+    }
     .categories-regular {
       position: relative;
       display: flex;
       justify-content: center;
-      gap: 30px;
       align-items: end;
-      padding: 0 20px 20px;
+      padding: 20px;
       padding-bottom: 30px;
       flex-wrap: wrap;
-      margin-bottom: 70px;
-      &::before {
-        content: " ";
-        position: absolute;
-        bottom: 0;
-        background: #1195ad;
-        width: 100%;
-        height: 230px;
-        z-index: 1;
-        border-radius: 8px;
-      }
-      > .card {
-        max-width: 230px;
-        background: white;
-        width: 20%;
-        height: 190px;
-        border: 3px solid #002d49;
-        border-radius: 12px;
-        z-index: 1;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-        text-align: center;
+      background: #cfe6e4;
+      border: 1px solid #64b8c4;
+      margin: 0 20px;
 
-        a {
-          text-decoration: none;
-        }
-        img {
-          width: 100%;
-          object-fit: cover;
-          height: calc(100% - 26px);
+      margin-bottom: 70px;
+      border-radius: 30px;
+      // &::before {
+      //   content: " ";
+      //   position: absolute;
+      //   bottom: 0;
+      //   background: #1195ad;
+      //   width: 100%;
+      //   height: 230px;
+      //   z-index: 1;
+      //   border-radius: 8px;
+      // }
+      .row {
+        display: flex;
+        min-width: 500px;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        > .card {
+          background: white;
+          max-width: 270px;
+          min-width: 250px;
+          width: 50%;
+          height: 190px;
+          border: 3px solid #002d49;
           border-radius: 12px;
+          z-index: 1;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: column;
+          text-align: center;
+
+          a {
+            text-decoration: none;
+          }
+          img {
+            width: 100%;
+            object-fit: cover;
+            height: calc(100% - 26px);
+            border-radius: 12px;
+          }
+          span {
+            display: block;
+            color: black;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 26px;
+          }
         }
-        span {
-          display: block;
-          color: black;
-          font-weight: 500;
-          font-size: 20px;
-          line-height: 26px;
+
+        .double-card {
+          max-width: 230px;
+          min-width: 250px;
+          width: 50%;
+          height: 190px;
+          border-radius: 12px;
+          z-index: 1;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: column;
+
+          > .card {
+            background: #043c5f;
+            width: 100%;
+            height: 45%;
+            border-radius: 12px;
+            padding: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+
+            a {
+              text-decoration: none;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+            img {
+              width: 50%;
+              border-radius: 4px;
+            }
+            svg {
+              color: #f0763e;
+              margin-right: 2px;
+            }
+            span {
+              display: flex;
+              color: white;
+              font-weight: 500;
+              font-size: 12px;
+            }
+          }
         }
       }
     }
     .category-visual {
       position: relative;
       display: flex;
+      background: #f9f2e6;
+      border: 1px solid #64b8c4;
       justify-content: center;
       gap: 30px;
       align-items: end;
-      padding-bottom: 30px;
+      padding: 40px;
       flex-wrap: wrap;
+      margin: 0 20px;
+      border-radius: 10px;
       margin-bottom: 40px;
-      &::before {
-        content: " ";
-        position: absolute;
-        bottom: 0;
-        background: #043c5f;
+      // &::before {
+      //   content: " ";
+      //   position: absolute;
+      //   bottom: 0;
+      //   background: #043c5f;
+      //   width: 100%;
+      //   height: 230px;
+      //   z-index: 1;
+      //   border-radius: 8px;
+      // }
+      h2 {
+        text-align: center;
+        font-size: 26px;
         width: 100%;
-        height: 230px;
-        z-index: 1;
-        border-radius: 8px;
+      }
+      p {
+        text-align: center;
+        font-size: 20px;
       }
       > .card {
         width: 40%;
@@ -307,44 +388,66 @@ $menu-icon-transition: transform 300ms cubic-bezier(0.52, -0.8, 0.52, 0.52);
       padding-bottom: 30px;
       flex-wrap: wrap;
       margin-bottom: 40px;
-      &::before {
-        content: " ";
-        position: absolute;
-        bottom: 0;
-        background: #1195ad;
-        width: 100%;
-        height: 230px;
-        z-index: 1;
-        border-radius: 8px;
-      }
+
+      min-height: 300px;
+
       > .card {
-        width: 40%;
-        max-width: 600px;
-        border: 3px solid #002d49;
-        border-radius: 23px;
-        z-index: 1;
+        position: relative;
         display: flex;
-        align-items: center;
+        height: 100%;
         justify-content: space-between;
-        flex-direction: column;
-        text-align: center;
+        align-items: center;
+        padding: 30px;
+        padding-bottom: 30px;
+        flex-wrap: wrap;
+        background: #f9f2e6;
+        border: 1px solid #64b8c4;
+        margin: 0 140px;
+        margin-bottom: 70px;
+        border-radius: 12px;
 
         img {
-          width: 100%;
+          height: 220px;
+          border-radius: 20px;
+        }
+        > div {
+          display: flex;
           height: 100%;
-          object-fit: cover;
-
-          border-radius: 20px 20px 0 0;
-        }
-
-        a {
-          text-decoration: none;
-        }
-        span {
-          display: block;
-          color: white;
-          font-size: 20px;
-          line-height: 26px;
+          width: 60%;
+          gap: 20px;
+          flex-direction: column;
+          justify-content: start;
+          align-items: start;
+          padding: 0 20px;
+          max-width: 500px;
+          a {
+            text-decoration: none;
+            cursor: pointer;
+            button {
+              width: 130px;
+              height: 40px;
+              background: #f0763e;
+              color: white;
+              border-radius: 8px;
+              font-size: 16px;
+              line-height: 16px;
+              cursor: pointer;
+            }
+          }
+          h2 {
+            display: block;
+            color: black;
+            width: 100%;
+            font-size: 20px;
+            line-height: 26px;
+            text-align: left;
+          }
+          p {
+            color: black;
+            text-align: left;
+            width: 80%;
+            margin-bottom: 30px;
+          }
         }
       }
     }
@@ -367,6 +470,28 @@ $menu-icon-transition: transform 300ms cubic-bezier(0.52, -0.8, 0.52, 0.52);
     }
     .filters {
       width: 100%;
+    }
+  }
+  .home .categories_wrapper .clickable-dictionaries > .card {
+    flex-direction: column;
+
+    align-items: center;
+    img {
+      width: 70%;
+
+      margin-bottom: 24px;
+    }
+    > div {
+      width: 70%;
+      padding: 0;
+      h2 {
+        text-align: center;
+      }
+      p {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+      }
     }
   }
 }
