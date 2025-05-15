@@ -869,6 +869,42 @@ app.get("/users", (req, res) => {
   });
 });
 
+// Get all questions and their replies
+app.get("/questions", (req, res) => {
+  const query = `
+    SELECT q.id, q.comment, q.parent_id, q.user_id, u.display_name
+    FROM questions q
+    LEFT JOIN users u ON q.user_id = u.id
+    ORDER BY q.id DESC
+  `;
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching questions:", err);
+      return res.status(500).json({ error: "Failed to fetch questions." });
+    }
+    res.json(results);
+  });
+});
+
+// Post a new question or reply
+app.post("/questions", (req, res) => {
+  const { comment, parent_id, user_id } = req.body;
+  if (!comment || !user_id) {
+    return res.status(400).json({ error: "Comment and user_id are required." });
+  }
+  const query = `
+    INSERT INTO questions (comment, parent_id, user_id)
+    VALUES (?, ?, ?)
+  `;
+  db.query(query, [comment, parent_id || null, user_id], (err, result) => {
+    if (err) {
+      console.error("Error posting question:", err);
+      return res.status(500).json({ error: "Failed to post question." });
+    }
+    res.status(201).json({ message: "Posted successfully", id: result.insertId });
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`); // واسه اینکه بفهمیم سرور استارت شده کنسول لاگ نوشتیم

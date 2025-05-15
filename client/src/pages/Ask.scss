@@ -1,0 +1,137 @@
+.ask-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+
+  h1 {
+    text-align: center;
+    color: #f0763e;
+    margin-bottom: 32px;
+  }
+
+  .ask-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #1195ad;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    button {
+      align-self: flex-end;
+      padding: 8px 20px;
+      background: #f0763e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      &:hover {
+        background: #1195ad;
+      }
+    }
+  }
+
+  .questions-list {
+    .question-block {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(17, 149, 173, 0.07);
+      margin-bottom: 24px;
+      padding: 18px 16px;
+
+      .question {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        .author {
+          color: #1195ad;
+        }
+      }
+
+      .toggle-replies {
+        background: none;
+        border: none;
+        color: #f0763e;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 8px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .reply-btn {
+        background: none;
+        border: none;
+        color: #1195ad;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+        padding: 0 6px;
+        &:hover {
+          text-decoration: underline;
+          color: #f0763e;
+        }
+      }
+
+      .replies {
+        margin-top: 10px;
+        padding-left: 16px;
+        border-left: 2px solid #cfe6e4;
+
+        .reply {
+          margin-bottom: 8px;
+          .author {
+            color: #1195ad;
+            font-weight: 500;
+          }
+        }
+        .no-replies {
+          color: #aaa;
+          font-style: italic;
+          margin-bottom: 8px;
+        }
+        .reply-form {
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+
+          textarea {
+            min-height: 40px;
+            border-radius: 6px;
+            border: 1px solid #1195ad;
+            padding: 6px;
+            font-size: 1rem;
+          }
+          button {
+            align-self: flex-end;
+            padding: 6px 16px;
+            background: #1195ad;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            &:hover {
+              background: #f0763e;
+            }
+          }
+        }
+      }
+    }
+  }
+}

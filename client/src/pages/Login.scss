@@ -14,6 +14,7 @@ $diffRatio: ($contW - $imgW) / $contW;
   }
 }
 .auth-component{
+  margin-top: 40px;
 
 
   button {
@@ -82,7 +83,7 @@ $diffRatio: ($contW - $imgW) / $contW;
     top: 0;
     width: $contW;
     height: 100%;
-    background-image: url("https://www.westoncompliance.co.uk/wp-content/uploads/2019/11/bg-for-sign-up-mock-2.jpg");
+    background-image: url("../../public/img/Online.gif");
     background-size: cover;
     transition: transform $switchAT ease-in-out;
   }

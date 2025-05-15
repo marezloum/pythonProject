@@ -9,7 +9,7 @@ body {
   color: #333;
 }
 
-.container.add-word {
+.add-word {
   max-width: 1400px;
   margin: 40px auto 0 auto;
   padding: 32px 24px;
@@ -19,187 +19,187 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.switch-row {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 18px;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.form-button {
-  padding: 12px 28px;
-  margin: 0 8px 18px 0;
-  border: none;
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 8px rgba(17, 149, 173, 0.08);
-  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  display: flex;
-  border-radius: 4px;
-  align-items: center;
-  background-color: #f0763e;
-  justify-content: center;
-
-  &.active {
-    background: linear-gradient(90deg, #f0763e 0%, #1195ad 100%);
-    box-shadow: 0 4px 16px rgba(240, 118, 62, 0.15);
-    transform: translateY(-2px) scale(1.04);
-  }
-
-  &:hover {
-    background: linear-gradient(90deg, #1195ad 0%, #f0763e 100%);
-    box-shadow: 0 6px 24px rgba(17, 149, 173, 0.15);
-    transform: translateY(-2px) scale(1.04);
-  }
-}
-
-.form {
-  width: 100%;
-  margin-top: 18px;
-  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  padding: 28px 20px 20px 20px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(44, 62, 80, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  position: relative;
-
-  // Double line design: each label/input in a row, with gap
-  form {
+  .switch-row {
     display: flex;
-    gap: 18px;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 18px;
+    width: 100%;
     flex-wrap: wrap;
-
-    > div.form-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 24px;
-      margin-bottom: 0;
-      width: calc(50% - 9px);
-
-      label {
-        font-weight: 600;
-        color: #333;
-        margin: 0;
-        text-align: right;
-      }
-
-      input[type="text"],
-      input[type="file"],
-      select,
-      textarea {
-        flex: 1;
-        padding: 10px 12px;
-        border-radius: 6px;
-        border: 1.5px solid #1195ad;
-        font-size: 1rem;
-        background: #f9f9f9;
-        transition: border 0.2s, box-shadow 0.2s;
-        box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
-
-        &:focus {
-          border: 1.5px solid #f0763e;
-          outline: none;
-          box-shadow: 0 2px 8px rgba(240, 118, 62, 0.08);
-        }
-      }
-
-      textarea {
-        min-height: 70px;
-        resize: vertical;
-      }
-    }
   }
 
-  // For legacy direct label/input (outside .form-row)
-  label {
-    margin-top: 0;
+  .form-button {
+    padding: 12px 28px;
+    margin: 0 8px 18px 0;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 0;
-  }
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(17, 149, 173, 0.08);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+    background-color: #f0763e;
+    justify-content: center;
 
-  input[type="text"],
-  input[type="file"],
-  select,
-  textarea {
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1.5px solid #1195ad;
-    margin-bottom: 0;
-    font-size: 1rem;
-    background: #f9f9f9;
-    transition: border 0.2s, box-shadow 0.2s;
-    box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
-
-    &:focus {
-      border: 1.5px solid #f0763e;
-      outline: none;
-      box-shadow: 0 2px 8px rgba(240, 118, 62, 0.08);
+    &.active {
+      background: linear-gradient(90deg, #f0763e 0%, #1195ad 100%);
+      box-shadow: 0 4px 16px rgba(240, 118, 62, 0.15);
+      transform: translateY(-2px) scale(1.04);
     }
-  }
-
-  textarea {
-    min-height: 70px;
-    resize: vertical;
-  }
-
-  button {
-    margin: 0 auto;
 
     &:hover {
-      background-color: #005cbf;
+      background: linear-gradient(90deg, #1195ad 0%, #f0763e 100%);
+      box-shadow: 0 6px 24px rgba(17, 149, 173, 0.15);
+      transform: translateY(-2px) scale(1.04);
     }
   }
-}
 
-.switch-row h3 {
-  text-align: center;
-  color: #1195ad;
-  font-size: 1.7rem;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-  font-weight: 700;
-}
+  .form {
+    width: 100%;
+    margin-top: 18px;
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    padding: 28px 20px 20px 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(44, 62, 80, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
 
-.switch-row h4 {
-  margin-top: 18px;
-  color: #f0763e;
-  font-size: 1.1rem;
-  font-weight: 600;
-  width: 100%;
-  text-align: center;
-}
+    // Double line design: each label/input in a row, with gap
+    form {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
 
-.switch-row p {
-  margin-top: 10px;
-  color: #1195ad;
-  font-weight: 600;
-  text-align: center;
-  min-height: 24px;
+      > div.form-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 0;
+        width: calc(50% - 9px);
+
+        label {
+          font-weight: 600;
+          color: #333;
+          margin: 0;
+          text-align: right;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select,
+        textarea {
+          flex: 1;
+          padding: 10px 12px;
+          border-radius: 6px;
+          border: 1.5px solid #1195ad;
+          font-size: 1rem;
+          background: #f9f9f9;
+          transition: border 0.2s, box-shadow 0.2s;
+          box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
+
+          &:focus {
+            border: 1.5px solid #f0763e;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(240, 118, 62, 0.08);
+          }
+        }
+
+        textarea {
+          min-height: 70px;
+          resize: vertical;
+        }
+      }
+    }
+
+    // For legacy direct label/input (outside .form-row)
+    label {
+      margin-top: 0;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select,
+    textarea {
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #1195ad;
+      margin-bottom: 0;
+      font-size: 1rem;
+      background: #f9f9f9;
+      transition: border 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
+
+      &:focus {
+        border: 1.5px solid #f0763e;
+        outline: none;
+        box-shadow: 0 2px 8px rgba(240, 118, 62, 0.08);
+      }
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    button {
+      margin: 0 auto;
+
+      &:hover {
+        background-color: #005cbf;
+      }
+    }
+  }
+
+  .switch-row h3 {
+    text-align: center;
+    color: #1195ad;
+    font-size: 1.7rem;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .switch-row h4 {
+    margin-top: 18px;
+    color: #f0763e;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+  }
+
+  .switch-row p {
+    margin-top: 10px;
+    color: #1195ad;
+    font-weight: 600;
+    text-align: center;
+    min-height: 24px;
+  }
 }
 
 @media (max-width: 700px) {
-  .container {
+  .add-word {
     max-width: 98vw;
     padding: 10px;
-  }
-  .form {
-    padding: 10px;
-  }
-  .form-button {
-    padding: 10px 10px;
-    font-size: 1rem;
+    .form {
+      padding: 10px;
+    }
+    .form-button {
+      padding: 10px 10px;
+      font-size: 1rem;
+    }
   }
 }

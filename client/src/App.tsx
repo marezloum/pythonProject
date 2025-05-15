@@ -13,6 +13,7 @@ import InteractiveDictionaryPage from "./pages/InteractiveDictionary";
 import AddWord from "./pages/Addword";
 import ClickableVisualDictionary from "./pages/ClickableVisualDictionary";
 import ProfilePage from "./pages/ProfilePage";
+import Ask from "./pages/Ask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,6 +37,7 @@ function App() {
             element={<ClickableVisualDictionary />}
           />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/ask" element={<Ask />} />
         </Routes>
         <Footer />
         {/* Floating Telegram Button */}

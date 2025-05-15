@@ -9,7 +9,7 @@ import { useCookies } from "react-cookie";
 
 const Login: React.FC = () => {
   let navigate = useNavigate();
-  const {id: userId} = useSelector((state: RootState) => state.user);
+  const { id: userId } = useSelector((state: RootState) => state.user);
   console.log(userId);
   useEffect(() => {
     if (userId) {
@@ -64,7 +64,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="auth-component">
-      <div>User ID: {userId}</div>
       <div className={`auth-container ${isLoginForm ? "" : "signup-form"}`}>
         <form onSubmit={handleLogin} className="form sign-in">
           <label>
@@ -93,17 +92,17 @@ const Login: React.FC = () => {
         <div className="transition-container">
           <div className="img">
             <div className="img__text signup">
-              <h2>New here?</h2>
+              <h2>Присоединяйтесь к нашему онлайн словарю!</h2>
               <p>
-                Send a request regarding one of our products and we are going to
-                be in contact with you shortly
+                Зарегистрируйтесь, чтобы получить доступ к полному функционалу и
+                исследовать множество слов и их значений.
               </p>
             </div>
             <div className="img__text signin">
-              <h2>One of us?</h2>
+              <h2>Ты уже один из нас?</h2>
               <p>
-                If you already have a Weston account, just sign in. We've missed
-                you!
+                Если у вас уже есть аккаунт в Lexoverse, просто войдите. Мы
+                очень рады вас видеть вновь!
               </p>
             </div>
             <div

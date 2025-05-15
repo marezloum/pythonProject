@@ -131,11 +131,9 @@ function Header() {
             </div>
             <div className="menu">
               <ul>
-                {location.pathname !== "/" && (
-                  <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                )}
+                <li>
+                  <Link to="/ask">Forum</Link>
+                </li>
                 {userId ? (
                   <>
                     <li>
