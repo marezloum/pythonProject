@@ -62,7 +62,7 @@ app.get("/dailyword", (req, res) => {
 });
 
 app.get("/allcategories", (req, res) => {
-  const categoriesQuery = "SELECT id, name FROM categories";
+  const categoriesQuery = "SELECT id, name, image FROM categories";
 
   db.query(categoriesQuery, (err, results) => {
     if (err) {

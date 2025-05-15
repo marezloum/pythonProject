@@ -211,15 +211,14 @@ function InteractiveDictionaryPage() {
                       </button>
                     </div>
                     <div className="transalte">{word.translate}</div>
-                    {userId && (
-                      <div
-                        className={`like ${isLiked ? "liked" : ""}`}
-                        onClick={() => toggleWordLike(word.id)}
-                      >
-                        <i className="fa-solid fa-heart"></i>
-                        <span className="likes-count">{word.likes_count}</span>
-                      </div>
-                    )}
+
+                    <div
+                      className={`like ${isLiked ? "liked" : ""}`}
+                      onClick={() => toggleWordLike(word.id)}
+                    >
+                      <i className="fa-solid fa-heart"></i>
+                      <span className="likes-count">{word.likes_count}</span>
+                    </div>
                   </span>
                 </div>
               );

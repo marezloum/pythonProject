@@ -30,7 +30,6 @@ function Home() {
   const handleShowFilter = () => {
     setShowSearch(false);
   };
-
   return (
     <main>
       <div className="container home">
@@ -128,66 +127,66 @@ function Home() {
                   <div className="double-card">
                     <div
                       className="card"
-                      key={`regular-category-${allCategories[1].id}`}
+                      key={`regular-category-${allCategories[3].id}`}
                     >
                       <Link
                         to="/category"
                         state={{
-                          categoryId: allCategories[1].id,
+                          categoryId: allCategories[3].id,
                         }}
                       >
                         <img
                           src={
-                            allCategories[1].image
-                              ? "/img/" + allCategories[1].image
+                            allCategories[3].image
+                              ? "/img/" + allCategories[3].image
                               : "/img/regular-category-placeholder.png"
                           }
-                          alt={allCategories[1].name}
+                          alt={allCategories[3].name}
                         />
-                        <span>{allCategories[1].name}</span>
+                        <span>{allCategories[3].name}</span>
                       </Link>
                     </div>
                     <div
                       className="card"
-                      key={`regular-category-${allCategories[2].id}`}
+                      key={`regular-category-${allCategories[4].id}`}
                     >
                       <Link
                         to="/category"
                         state={{
-                          categoryId: allCategories[2].id,
+                          categoryId: allCategories[4].id,
                         }}
                       >
                         <img
                           src={
-                            allCategories[2].image
-                              ? "/img/" + allCategories[2].image
+                            allCategories[4].image
+                              ? "/img/" + allCategories[4].image
                               : "/img/regular-category-placeholder.png"
                           }
-                          alt={allCategories[2].name}
+                          alt={allCategories[4].name}
                         />
-                        <span>{allCategories[2].name}</span>
+                        <span>{allCategories[4].name}</span>
                       </Link>
                     </div>
                   </div>
                   <div
                     className="card"
-                    key={`regular-category-${allCategories[3].id}`}
+                    key={`regular-category-${allCategories[5].id}`}
                   >
                     <Link
                       to="/category"
                       state={{
-                        categoryId: allCategories[3].id,
+                        categoryId: allCategories[5].id,
                       }}
                     >
                       <img
                         src={
-                          allCategories[3].image
-                            ? "/img/" + allCategories[3].image
+                          allCategories[5].image
+                            ? "/img/" + allCategories[5].image
                             : "/img/regular-category-placeholder.png"
                         }
-                        alt={allCategories[3].name}
+                        alt={allCategories[5].name}
                       />
-                      <span>{allCategories[3].name}</span>
+                      <span>{allCategories[5].name}</span>
                     </Link>
                   </div>
                 </div>
@@ -281,6 +280,22 @@ function Home() {
                   </div>
                 ))}
           </div> */}
+        </div>
+        <div className="team-section">
+          <img
+            src="/img/team.png"
+            alt="Team illustration"
+            className="team-section__img"
+          />
+          <div className="team-section__content">
+            <h2>Мы</h2>
+            <p>
+              команда лингвистов с сердцем и мышлением разработчиков.
+              Мы знаем, как устроен язык, и умеем превращать лингвистические идеи в современные цифровые решения.
+              Впервые проекты создаются не просто айтишниками — а теми, кто сам дышит языком, понимает потребности студентов и учёных.
+              Мы объединяем лингвистику, дизайн и технологии, чтобы сделать обучение языкам глубоким, наглядным и по-настоящему удобным.
+            </p>
+          </div>
         </div>
       </div>
     </main>
