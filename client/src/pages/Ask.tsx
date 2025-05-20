@@ -65,27 +65,27 @@ const Ask: React.FC = () => {
         {replies.map((r) => (
           <div key={r.id}>
             <div className="reply">
-              <span className="author">{r.display_name || "User"}</span>: {r.comment}
+              <span className="author">{r.display_name || "Пользователь"}</span>: {r.comment}
               {userId && (
                 <button
                   className="reply-btn"
                   onClick={() => setActiveReplyBox(r.id === activeReplyBox ? null : r.id)}
                   style={{ marginLeft: 8 }}
                 >
-                  reply
+                  ответить
                 </button>
               )}
             </div>
             {activeReplyBox === r.id && userId && (
               <div className="reply-form">
                 <textarea
-                  placeholder="Write a reply..."
+                  placeholder="Напишите ответ..."
                   value={reply[r.id] || ""}
                   onChange={(e) =>
                     setReply((prev) => ({ ...prev, [r.id]: e.target.value }))
                   }
                 />
-                <button onClick={() => handlePostReply(r.id)}>Reply</button>
+                <button onClick={() => handlePostReply(r.id)}>Ответить</button>
               </div>
             )}
             {/* Render nested replies */}
@@ -98,22 +98,22 @@ const Ask: React.FC = () => {
 
   return (
     <div className="ask-page">
-      <h1>Forum</h1>
+      <h1>Форум</h1>
       {userId && (
         <div className="ask-form">
           <textarea
-            placeholder="Ask a question..."
+            placeholder="Задайте вопрос..."
             value={newQuestion}
             onChange={(e) => setNewQuestion(e.target.value)}
           />
-          <button onClick={handlePostQuestion}>Post Question</button>
+          <button onClick={handlePostQuestion}>Опубликовать вопрос</button>
         </div>
       )}
       <div className="questions-list">
         {parentQuestions.map((q) => (
           <div className="question-block" key={q.id}>
             <div className="question">
-              <span className="author">{q.display_name || "User"}</span>: {q.comment}
+              <span className="author">{q.display_name || "Пользователь"}</span>: {q.comment}
             </div>
             <button
               className="toggle-replies"
@@ -124,24 +124,24 @@ const Ask: React.FC = () => {
                 }))
               }
             >
-              {showReplies[q.id] ? "Hide Replies" : "Show Replies"}
+              {showReplies[q.id] ? "Скрыть ответы" : "Показать ответы"}
             </button>
             {showReplies[q.id] && (
               <div className="replies">
                 {repliesByParent(q.id).length === 0 && (
-                  <div className="no-replies">No replies yet.</div>
+                  <div className="no-replies">Ответов пока нет.</div>
                 )}
                 {/* Always show reply form for top-level question */}
                 {userId && (
                   <div className="reply-form ">
                     <textarea
-                      placeholder="Write a reply..."
+                      placeholder="Напишите ответ..."
                       value={reply[q.id] || ""}
                       onChange={(e) =>
                         setReply((prev) => ({ ...prev, [q.id]: e.target.value }))
                       }
                     />
-                    <button onClick={() => handlePostReply(q.id)}>Reply</button>
+                    <button onClick={() => handlePostReply(q.id)}>Ответить</button>
                   </div>
                 )}
                 {/* Render all nested replies */}

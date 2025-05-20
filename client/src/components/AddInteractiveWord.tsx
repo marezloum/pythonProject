@@ -73,10 +73,10 @@ function AddInteractiveWord() {
 
   return (
     <div className="form">
-      <h3>Interactive Word</h3>
+      <h3>Интерактивное слово</h3>
       <form>
         <div className="form-row">
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Слово:</label>
           <input
             type="text"
             id="title"
@@ -92,7 +92,7 @@ function AddInteractiveWord() {
           />
         </div>
         <div className="form-row">
-          <label htmlFor="translate">Translate:</label>
+          <label htmlFor="translate">Перевод:</label>
           <input
             type="text"
             id="translate"
@@ -108,21 +108,21 @@ function AddInteractiveWord() {
           />
         </div>
         <div className="form-row">
-          <label htmlFor="dictionary">dictionary:</label>
+          <label htmlFor="dictionary">Словарь:</label>
           <select
             id="dictionary"
             name="dictionary"
             value={formState.dictionary ?? ""}
             onChange={handleDictionaryChange}
           >
-            <option value="">select one</option>
+            <option value="">Выберите словарь</option>
             {allInteractiveDictionaries?.map((dictionary) => (
               <option key={"dictionary-" + dictionary.name} value={dictionary.id}>{dictionary.name}</option>
             ))}
           </select>
         </div>
         <div className="form-row">
-          <label htmlFor="tags">tags:</label>
+          <label htmlFor="tags">Теги:</label>
           <input
             type="text"
             id="tags"
@@ -136,9 +136,9 @@ function AddInteractiveWord() {
             }
           />
         </div>
-        <h4>Media Files</h4>
+        <h4>Медиафайлы</h4>
         <div className="form-row">
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Изображение:</label>
           <input
             type="file"
             id="image"
@@ -147,7 +147,7 @@ function AddInteractiveWord() {
           />
         </div>
         <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
-          Add Word
+          Добавить слово
         </button>
         <p>{message}</p>
       </form>

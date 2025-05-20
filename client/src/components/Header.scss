@@ -23,7 +23,10 @@ header {
     justify-content: space-between;
     .logo {
       a {
-        color: #f0763e; // Set the color
+        img{
+              width: 150px;
+        }
+        // color: #f0763e; // Set the color
         text-decoration: none; // Remove underline
       }
     }
@@ -95,7 +98,7 @@ header {
           display: flex;
           justify-content: space-around;
           li {
-            font-size: 0.9em;
+            font-size: 0.8em;
             font-weight: 700;
             cursor: pointer;
             user-select: none;

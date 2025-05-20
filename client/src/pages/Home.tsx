@@ -37,8 +37,8 @@ function Home() {
           <div className="search_area-wrapper">
             <div className="search_area">
               <div className="selectors">
-                <span onClick={() => handleShowSearch()}>search</span>
-                <span onClick={() => handleShowFilter()}>filter</span>
+                <span onClick={() => handleShowSearch()}>поиск</span>
+                <span onClick={() => handleShowFilter()}>фильтр</span>
               </div>
               <div className="search_filter">
                 <SearchComponent show={showSearch} />
@@ -238,7 +238,7 @@ function Home() {
                         shapes: dictionary.shapes,
                       }}
                     >
-                      <button>открыть</button>
+                      <button>Открыть</button>
                     </Link>
                   </div>
                 </div>
@@ -278,13 +278,12 @@ function Home() {
                       <span>{category.name}</span>
                     </Link>
                   </div>
-                ))}
-          </div> */}
+                ))} */}
         </div>
         <div className="team-section">
           <img
             src="/img/team.png"
-            alt="Team illustration"
+            alt="Иллюстрация команды"
             className="team-section__img"
           />
           <div className="team-section__content">

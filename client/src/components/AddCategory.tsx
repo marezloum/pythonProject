@@ -53,10 +53,10 @@ function AddCategory() {
 
   return (
     <div className="form">
-      <h3>Category</h3>
+      <h3>Категория</h3>
       <form>
         <div className="form-row">
-          <label htmlFor="name">name:</label>
+          <label htmlFor="name">Название:</label>
           <input
             type="text"
             id="name"
@@ -71,9 +71,9 @@ function AddCategory() {
             required
           />
         </div>
-        <h4>Media Files</h4>
+        <h4>Медиафайлы</h4>
         <div className="form-row">
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Изображение:</label>
           <input
             type="file"
             id="image"
@@ -83,7 +83,7 @@ function AddCategory() {
         </div>
         <br />
         <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
-          Add Category
+          Добавить категорию
         </button>
         <p>{message}</p>
       </form>

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Login.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../store/userSlice";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -16,8 +15,7 @@ const Login: React.FC = () => {
       navigate("/");
     }
   }, [userId, navigate]);
-  const [cookie, setCookie] = useCookies<"userId", CookieValues>(["userId"]);
-  const dispatch = useDispatch();
+  const [_, setCookie] = useCookies<"userId", CookieValues>(["userId"]);
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -41,7 +39,11 @@ const Login: React.FC = () => {
       navigate("/");
     } catch (error: any) {
       // Handle error
-      setLoginMessage(error.response.data.error);
+      setLoginMessage(
+        error.response?.data?.error
+          ? "Ошибка: " + error.response.data.error
+          : "Ошибка входа. Попробуйте еще раз."
+      );
     }
   };
 
@@ -57,7 +59,11 @@ const Login: React.FC = () => {
       setSignUpMessage(response.data.message);
       setIsLoginForm(true);
     } catch (error: any) {
-      setSignUpMessage(error.response.data.error);
+      setSignUpMessage(
+        error.response?.data?.error
+          ? "Ошибка: " + error.response.data.error
+          : "Ошибка регистрации. Попробуйте еще раз."
+      );
       // Handle error
     }
   };
@@ -67,7 +73,7 @@ const Login: React.FC = () => {
       <div className={`auth-container ${isLoginForm ? "" : "signup-form"}`}>
         <form onSubmit={handleLogin} className="form sign-in">
           <label>
-            <span>Email</span>
+            <span>Почта</span>
             <input
               type="email"
               value={loginEmail}
@@ -76,7 +82,7 @@ const Login: React.FC = () => {
             />
           </label>
           <label>
-            <span>Password</span>
+            <span>Пароль</span>
             <input
               type="password"
               value={loginPassword}
@@ -85,37 +91,35 @@ const Login: React.FC = () => {
             />
           </label>
           <button type="submit" className="submit">
-            Sign In
+            Войти
           </button>
           {loginMessage}
         </form>
         <div className="transition-container">
           <div className="img">
             <div className="img__text signup">
-              <h2>Присоединяйтесь к нашему онлайн словарю!</h2>
+              <h2>Присоединяйтесь к нашему онлайн-словарю!</h2>
               <p>
-                Зарегистрируйтесь, чтобы получить доступ к полному функционалу и
-                исследовать множество слов и их значений.
+                Зарегистрируйтесь, чтобы получить доступ ко всем функциям и исследовать множество слов и их значений.
               </p>
             </div>
             <div className="img__text signin">
-              <h2>Ты уже один из нас?</h2>
+              <h2>Уже с нами?</h2>
               <p>
-                Если у вас уже есть аккаунт в Lexoverse, просто войдите. Мы
-                очень рады вас видеть вновь!
+                Если у вас уже есть аккаунт в Lexoverse, просто войдите. Мы очень рады видеть вас снова!
               </p>
             </div>
             <div
               className="img__btn"
               onClick={(e) => setIsLoginForm(!isLoginForm)}
             >
-              <span className="signup">Sign Up</span>
-              <span className="signin">Sign In</span>
+              <span className="signup">Регистрация</span>
+              <span className="signin">Войти</span>
             </div>
           </div>
           <form onSubmit={handleSignUp} className="form sign-up">
             <label>
-              <span>Display Name</span>
+              <span>Имя пользователя</span>
               <input
                 type="text"
                 value={displayName}
@@ -124,7 +128,7 @@ const Login: React.FC = () => {
               />
             </label>
             <label>
-              <span>Email</span>
+              <span>Почта</span>
               <input
                 type="email"
                 value={signupEmail}
@@ -133,7 +137,7 @@ const Login: React.FC = () => {
               />
             </label>
             <label>
-              <span>Password</span>
+              <span>Пароль</span>
               <input
                 type="password"
                 value={signupPassword}
@@ -142,7 +146,7 @@ const Login: React.FC = () => {
               />
             </label>
             <button type="submit" className="submit">
-              Sign Up
+              Зарегистрироваться
             </button>
             {signUpMessage}
           </form>

@@ -14,14 +14,14 @@ import AddWord from "./pages/Addword";
 import ClickableVisualDictionary from "./pages/ClickableVisualDictionary";
 import ProfilePage from "./pages/ProfilePage";
 import Ask from "./pages/Ask";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import VerticalMenu from "./components/VerticalMenu";
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Header />
+        <VerticalMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -40,16 +40,6 @@ function App() {
           <Route path="/ask" element={<Ask />} />
         </Routes>
         <Footer />
-        {/* Floating Telegram Button */}
-        <a
-          href="https://t.me/marezloum_bot"
-          className="floating-telegram-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Contact us on Telegram"
-        >
-          <FontAwesomeIcon icon={faMessage} size="2x" />
-        </a>
       </Router>
     </Provider>
   );

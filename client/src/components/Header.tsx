@@ -122,7 +122,7 @@ function Header() {
     <header>
       <div className="row">
         <div className="logo">
-          <Link to="/">Lexoverse</Link>
+          <Link to="/"><img src="img/logo.svg" alt="" /></Link>
         </div>
         <div className="frame">
           <div className="center">
@@ -132,27 +132,27 @@ function Header() {
             <div className="menu">
               <ul>
                 <li>
-                  <Link to="/ask">Forum</Link>
+                  <Link to="/ask">Форум</Link>
                 </li>
                 {userId ? (
                   <>
                     <li>
-                      <Link to="/profile">Profile</Link>
+                      <Link to="/profile">Профиль</Link>
                     </li>
                     <li>
-                      <a onClick={() => handleLogout()}>Logout</a>
+                      <a onClick={() => handleLogout()}>Выйти</a>
                     </li>
                     {user_role === "admin" &&
                       location.pathname !== "/addword" && (
                         <li>
-                          <Link to="/addword">Add Word</Link>
+                          <Link to="/addword">Добавить слово</Link>
                         </li>
                       )}
                   </>
                 ) : (
                   <>
                     <li>
-                      <Link to="/login">Login</Link>
+                      <Link to="/login">Войти</Link>
                     </li>
                   </>
                 )}

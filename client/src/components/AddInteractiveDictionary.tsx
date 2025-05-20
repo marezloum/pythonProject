@@ -56,10 +56,10 @@ function AddInteractiveDictionary() {
 
   return (
     <div className="form">
-      <h3>Interactive Dictionary</h3>
+      <h3>Интерактивный словарь</h3>
       <form>
         <div className="form-row">
-          <label htmlFor="name">name:</label>
+          <label htmlFor="name">Название:</label>
           <input
             type="text"
             id="name"
@@ -74,9 +74,9 @@ function AddInteractiveDictionary() {
             required
           />
         </div>
-        <h4>Media Files</h4>
+        <h4>Медиафайлы</h4>
         <div className="form-row">
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Изображение:</label>
           <input
             type="file"
             id="image"
@@ -90,7 +90,7 @@ function AddInteractiveDictionary() {
           type="button"
           onClick={(e) => handleSubmit()}
         >
-          Add Interactive Dictionay
+          Добавить интерактивный словарь
         </button>{" "}
         <p>{message}</p>
       </form>

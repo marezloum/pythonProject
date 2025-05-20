@@ -79,3 +79,155 @@ body {
     }
   }
 }
+
+// Add vertical menu styles
+.vertical-menu {
+  position: fixed;
+  top: 150px;
+  right: 0;
+  width: 56px;
+  background: #2d4a6a;
+  border-radius: 16px 0 0 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 18px;
+
+  .menu-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 8px;
+
+    &:hover {
+      background: #466b9e;
+    }
+
+    &.telegram {
+      color: #229ed9;
+      font-size: 8px;
+      background: #fff;
+      border-radius: 50%;
+      padding: 4px;
+      box-shadow: 0 2px 6px rgba(34, 158, 217, 0.1);
+    }
+  }
+}
+@media (max-width: 768px) {
+  .vertical-menu {
+    display: none;
+  }
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // No text, only icon
+}
+
+.theme-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #cfcfcf;
+  border-radius: 50%;
+  padding: 0.5rem;
+  background: #fff;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+body.dark-theme {
+  background: #181c24;
+  transition: background 0.3s, color 0.3s;
+
+  .vertical-menu {
+    background: #23283a;
+    border-right: 1px solid #2d3347;
+
+    .theme-toggle-btn {
+      background: linear-gradient(90deg, #3a3f5c 0%, #23283a 100%);
+      color: #f7ca18;
+      border: none;
+      box-shadow: 0 2px 8px rgba(40, 40, 60, 0.2);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .theme-toggle-btn:hover {
+      background: #2d3347;
+      color: #fff;
+    }
+  }
+
+  input,
+  textarea,
+  select {
+    background: #23283a;
+    color: #e0e6f0;
+    border: 1px solid #3a3f5c;
+  }
+
+  .auth-component {
+    background: #181c24;
+  }
+
+  .form {
+    background: #23283a;
+    box-shadow: 0 4px 24px rgba(20, 20, 40, 0.3);
+  }
+
+  header > .row {
+    background: #181c24;
+  }
+
+  .home .hero .search_area-wrapper {
+    background: #181c24;
+  }
+
+  label span {
+    color: #f7ca18;
+  }
+
+  .submit {
+    background: #f7ca18;
+    color: #23283a;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .submit:hover {
+    background: #fff;
+    color: #23283a;
+  }
+  .theme-toggle-icon {
+    border-color: #f7ca18;
+    background: #23283a;
+  }
+
+  .categories_wrapper {
+    > h2,
+    > p {
+      color: #e0e6f0;
+    }
+  }
+  .profile-page {
+    .admin-section h2,
+    .password-form,
+    > h2 {
+      color: #e0e6f0;
+    }
+  }
+}

@@ -16,7 +16,6 @@ $diffRatio: ($contW - $imgW) / $contW;
 .auth-component{
   margin-top: 40px;
 
-
   button {
     display: block;
     margin: 0 auto;
@@ -24,15 +23,26 @@ $diffRatio: ($contW - $imgW) / $contW;
     height: $btnH;
     border-radius: 30px;
     color: #fff;
-    font-size: 15px;
+    font-size: 13px;
     cursor: pointer;
     margin-top: 10px;
+    background: #f0763e;
   }
   
   h2 {
     width: 100%;
-    font-size: 26px;
+    font-size: 22px;
     text-align: center;
+  }
+  
+  // Добавлено: отступ сверху перед кнопками
+  form {
+    // ...existing code...
+    button {
+      margin-top: 24px;
+      background: #f0763e;
+      // ...existing code...
+    }
   }
   
   label {
@@ -42,7 +52,7 @@ $diffRatio: ($contW - $imgW) / $contW;
     text-align: center;
   
     span {
-      font-size: 12px;
+      font-size: 10px;
       color: #cfcfcf;
       text-transform: uppercase;
     }
@@ -53,14 +63,14 @@ $diffRatio: ($contW - $imgW) / $contW;
     width: 100%;
     margin-top: 5px;
     padding-bottom: 5px;
-    font-size: 16px;
+    font-size: 12px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     text-align: center;
   }
 }
 .tip {
-  font-size: 20px;
+  font-size: 13px;
   margin: 40px auto 50px;
   text-align: center;
 }
@@ -118,10 +128,11 @@ $diffRatio: ($contW - $imgW) / $contW;
     h2 {
       margin-bottom: 10px;
       font-weight: normal;
+      font-size: 22px;
     }
 
     p {
-      font-size: 14px;
+      font-size: 18px;
       line-height: 1.5;
     }
 
@@ -144,13 +155,13 @@ $diffRatio: ($contW - $imgW) / $contW;
     overflow: hidden;
     z-index: 2;
     position: relative;
-    width: 100px;
-    height: $btnH;
+    width: 140px; // увеличено
+    height: $btnH + 8px; // увеличено
     margin: 0 auto;
     background: transparent;
     color: #fff;
-    text-transform: uppercase;
-    font-size: 15px;
+   
+    font-size: 16px; // увеличено до 16px
     cursor: pointer;
 
     &:after {
@@ -196,16 +207,16 @@ $diffRatio: ($contW - $imgW) / $contW;
 .forgot-pass {
   margin-top: 15px;
   text-align: center;
-  font-size: 12px;
+  font-size: 9px;
   color: #cfcfcf;
 }
 
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
-  background: #1068c9;
-
+  background: #f0763e;
   text-transform: uppercase;
+  font-size: 13px;
 }
 .auth-container {
   overflow: hidden;

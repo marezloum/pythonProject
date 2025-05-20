@@ -36,7 +36,7 @@ body {
     margin: 0 8px 18px 0;
     border: none;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 1px;
     box-shadow: 0 2px 8px rgba(17, 149, 173, 0.08);
@@ -102,7 +102,7 @@ body {
           padding: 10px 12px;
           border-radius: 6px;
           border: 1.5px solid #1195ad;
-          font-size: 1rem;
+          font-size: 0.95rem;
           background: #f9f9f9;
           transition: border 0.2s, box-shadow 0.2s;
           box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
@@ -137,7 +137,7 @@ body {
       border-radius: 6px;
       border: 1.5px solid #1195ad;
       margin-bottom: 0;
-      font-size: 1rem;
+      font-size: 0.95rem;
       background: #f9f9f9;
       transition: border 0.2s, box-shadow 0.2s;
       box-shadow: 0 1px 4px rgba(17, 149, 173, 0.04);
@@ -166,19 +166,19 @@ body {
   .switch-row h3 {
     text-align: center;
     color: #1195ad;
-    font-size: 1.7rem;
     margin-bottom: 18px;
     letter-spacing: 1px;
     font-weight: 700;
+    font-size: 1rem;
   }
 
   .switch-row h4 {
     margin-top: 18px;
     color: #f0763e;
-    font-size: 1.1rem;
     font-weight: 600;
     width: 100%;
     text-align: center;
+    font-size: 0.85rem;
   }
 
   .switch-row p {
@@ -187,6 +187,7 @@ body {
     font-weight: 600;
     text-align: center;
     min-height: 24px;
+    font-size: 0.95rem;
   }
 }
 

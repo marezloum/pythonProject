@@ -33,6 +33,11 @@ function AddNormalWord() {
     imageUrl: null,
     videoUrl: null,
   });
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -93,10 +98,10 @@ function AddNormalWord() {
 
   return (
     <div className="form">
-      <h3>Normal Word</h3>
+      <h3>Обычное слово</h3>
       <form>
         <div className="form-row">
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Слово:</label>
           <input
             type="text"
             id="title"
@@ -108,11 +113,17 @@ function AddNormalWord() {
                 title: e.target.value,
               }))
             }
+            onBlur={() => handleBlur("title")}
             required
+            style={
+              touched["title"] && !formState.title
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           />
         </div>
         <div className="form-row">
-          <label htmlFor="translate">Translate:</label>
+          <label htmlFor="translate">Перевод:</label>
           <input
             type="text"
             id="translate"
@@ -124,11 +135,17 @@ function AddNormalWord() {
                 translate: e.target.value,
               }))
             }
+            onBlur={() => handleBlur("translate")}
             required
+            style={
+              touched["translate"] && !formState.translate
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           />
         </div>
         <div className="form-row">
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="description">Описание:</label>
           <textarea
             id="description"
             name="description"
@@ -142,7 +159,7 @@ function AddNormalWord() {
           ></textarea>
         </div>
         <div className="form-row">
-          <label htmlFor="dictionary">Dictionary:</label>
+          <label htmlFor="dictionary">Словарь:</label>
           <input
             type="text"
             id="dictionary"
@@ -157,7 +174,7 @@ function AddNormalWord() {
           />
         </div>
         <div className="form-row">
-          <label htmlFor="tags">tags:</label>
+          <label htmlFor="tags">Теги:</label>
           <input
             type="text"
             id="tags"
@@ -172,14 +189,20 @@ function AddNormalWord() {
           />
         </div>
         <div className="form-row">
-          <label htmlFor="category">Category:</label>
+          <label htmlFor="category">Категория:</label>
           <select
             id="category"
             name="category"
             value={formState.category ?? ""}
             onChange={handleCategoryChange}
+            onBlur={() => handleBlur("category")}
+            style={
+              touched["category"] && !formState.category
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           >
-            <option value="">Select a category</option>
+            <option value="">Выберите категорию</option>
             {allCategories?.map((category) => (
               <option key={"category-" + category.name} value={category.id}>
                 {category.name}
@@ -188,7 +211,7 @@ function AddNormalWord() {
           </select>
         </div>
         <div className="form-row">
-          <label htmlFor="examples">Examples:</label>
+          <label htmlFor="examples">Примеры:</label>
           <textarea
             id="examples"
             name="examples"
@@ -201,18 +224,24 @@ function AddNormalWord() {
             }
           ></textarea>
         </div>
-        <h4>Media Files</h4>
+        <h4>Медиафайлы</h4>
         <div className="form-row">
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Изображение:</label>
           <input
             type="file"
             id="image"
             accept="image/*"
             onChange={handleImageChange}
+            onBlur={() => handleBlur("imageFile")}
+            style={
+              touched["imageFile"] && !formState.imageFile
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           />
         </div>
         <div className="form-row">
-          <label htmlFor="video">Video:</label>
+          <label htmlFor="video">Видео:</label>
           <input
             type="file"
             id="video"
@@ -221,7 +250,7 @@ function AddNormalWord() {
           />
         </div>
         <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
-          Add Word
+          Добавить слово
         </button>{" "}
         <p>{message}</p>
       </form>

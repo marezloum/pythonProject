@@ -1,56 +1,49 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./SearchComponent.scss"; // Import the SASS styles
-import { Link, useLocation } from "react-router-dom"; // Import useLocation
+import "./SearchComponent.scss";
+import { Link, useLocation } from "react-router-dom";
 
-// Define the type for the items returned from the API
+// Тип для элементов, возвращаемых из API
 interface ResultItem {
   id: string;
   title: string;
   translate: string;
   likes: number;
 }
-//react functional component (type for searchComponent)
+
+// Функциональный компонент поиска
 const SearchComponent: React.FC<{ show: boolean }> = ({ show }) => {
-  const [searchTerm, setSearchTerm] = useState<string>(""); //use state for search input(keyup)
-  const [results, setResults] = useState<ResultItem[]>([]); //results of Api call
-  const location = useLocation(); // Get the current location
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [results, setResults] = useState<ResultItem[]>([]);
+  const location = useLocation();
+
   useEffect(() => {
     const script = document.createElement("script");
-
     script.src = "/js/search.js";
     script.async = true;
-
     document.body.appendChild(script);
-
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
-  //هندل کی آپ یک فانکشنه که یه ورودی داره به اسم ایونت و تایپ ایونت بعدشه
+  // Обработчик события нажатия клавиши в поле поиска
   const handleKeyUp = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    //React.KeyboardEvent یک جنریک تایپ هستش،
-    //<HTMLInputElement> با نوشتن این، داریم میگیم دقیق کدوم المنت، اینجا مثلا اینپوت داریم، میتونیم دیو داشته باشیم و ...
     const term = (event.target as HTMLInputElement).value;
-    //هروقت یک ایونت برای یک المنت رخ میده، مقدار ایونت توسط همان المنت پر می شود
-    //event.target=input as==> type. value---> مقدار میده
-
     if (term) {
-      //if string is not empty
       try {
         const response = await axios.get<ResultItem[]>(
           `http://localhost:3008/search?term=${term}`
-        ); //ریزالتی که فانکشنِ  اکسیوز .گت  میده، یک آرایه از ریزالت آیتمه.
-        setResults(response.data); //جوابِ ای پی آی
+        );
+        setResults(response.data);
         if (response.data.length > 0) {
           global.hasSearchResult = true;
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Ошибка при получении данных:", error);
       }
     } else {
-      setResults([]); // Clear results if input is empty
+      setResults([]);
     }
   };
 
@@ -82,16 +75,17 @@ const SearchComponent: React.FC<{ show: boolean }> = ({ show }) => {
                   state={{ wordId: result.id }}
                   onClick={(e) => {
                     if (location.pathname === "/word") {
-                      e.preventDefault(); // Prevent navigation
+                      e.preventDefault();
                       window.history.replaceState(
                         null,
                         "",
                         `/word?wordId=${result.id}`
-                      ); // Update URL
-                      window.dispatchEvent(new Event("popstate")); // Trigger state update
+                      );
+                      window.dispatchEvent(new Event("popstate"));
                     }
                   }}
                   className="title"
+                  aria-label="Перейти к слову"
                 >
                   <span>{result.title}</span>
                 </Link>
