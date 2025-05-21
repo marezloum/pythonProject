@@ -23,48 +23,48 @@ body {
   .switch-row {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 32px;
     justify-content: center;
     align-items: center;
     margin-bottom: 18px;
     width: 100%;
     flex-wrap: wrap;
+    background: #d2eaea;
+    border: 1.5px solid #7bb7bb;
+    border-radius: 10px;
+    padding: 18px 0 18px 0;
+    box-sizing: border-box;
   }
 
   .form-button {
-    padding: 12px 28px;
-    margin: 0 8px 18px 0;
+    background: #ea8a5e;
     border: none;
+    border-radius: 10px;
     color: #fff;
-    font-size: 0.95rem;
     font-weight: 600;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 8px rgba(17, 149, 173, 0.08);
-    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: none;
+    transition: background 0.2s, transform 0.15s;
     cursor: pointer;
-    display: flex;
-    border-radius: 4px;
-    align-items: center;
-    background-color: #f0763e;
-    justify-content: center;
+    min-width: 180px;
+    height: 48px;
+    padding: 10px 16px;
 
     &.active {
-      background: linear-gradient(90deg, #f0763e 0%, #1195ad 100%);
-      box-shadow: 0 4px 16px rgba(240, 118, 62, 0.15);
-      transform: translateY(-2px) scale(1.04);
+      background: #f0763e;
+      transform: scale(1.04);
+      font-size: 16px;
     }
 
     &:hover {
-      background: linear-gradient(90deg, #1195ad 0%, #f0763e 100%);
-      box-shadow: 0 6px 24px rgba(17, 149, 173, 0.15);
-      transform: translateY(-2px) scale(1.04);
+      background: #f0763e;
+      transform: scale(1.04);
     }
   }
 
   .form {
     width: 100%;
     margin-top: 18px;
-    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    background: #f9f2e6b5;
     padding: 28px 20px 20px 20px;
     border-radius: 14px;
     box-shadow: 0 4px 18px rgba(44, 62, 80, 0.1);
@@ -81,6 +81,7 @@ body {
 
       > div.form-row {
         display: flex;
+        flex-wrap: wrap;
         flex-direction: row;
         align-items: center;
         gap: 24px;
@@ -98,6 +99,7 @@ body {
         input[type="file"],
         select,
         textarea {
+          min-width: 200px;
           flex: 1;
           padding: 10px 12px;
           border-radius: 6px;

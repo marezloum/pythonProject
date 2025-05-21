@@ -97,12 +97,12 @@ function AddNormalWord() {
   };
 
   return (
-    <div className="form">
-      <h3>Обычное слово</h3>
-      <form>
-        <div className="form-row">
-          <label htmlFor="title">Слово:</label>
+    <form className="addword-form-modern">
+      <div className="addword-form-modern__flex">
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="title">Слово</label>
           <input
+            className="addword-form-modern__input"
             type="text"
             id="title"
             name="title"
@@ -122,9 +122,10 @@ function AddNormalWord() {
             }
           />
         </div>
-        <div className="form-row">
-          <label htmlFor="translate">Перевод:</label>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="translate">Перевод</label>
           <input
+            className="addword-form-modern__input"
             type="text"
             id="translate"
             name="translate"
@@ -144,9 +145,11 @@ function AddNormalWord() {
             }
           />
         </div>
-        <div className="form-row">
-          <label htmlFor="description">Описание:</label>
-          <textarea
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="description">Описание</label>
+          <input
+            className="addword-form-modern__input"
+            type="text"
             id="description"
             name="description"
             value={formState.description}
@@ -156,26 +159,12 @@ function AddNormalWord() {
                 description: e.target.value,
               }))
             }
-          ></textarea>
-        </div>
-        <div className="form-row">
-          <label htmlFor="dictionary">Словарь:</label>
-          <input
-            type="text"
-            id="dictionary"
-            name="dictionary"
-            value={formState.dictionary || ""}
-            onChange={(e) =>
-              setFormState((prevState) => ({
-                ...prevState,
-                dictionary: e.target.value,
-              }))
-            }
           />
         </div>
-        <div className="form-row">
-          <label htmlFor="tags">Теги:</label>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="tags">Теги</label>
           <input
+            className="addword-form-modern__input"
             type="text"
             id="tags"
             name="tags"
@@ -188,9 +177,42 @@ function AddNormalWord() {
             }
           />
         </div>
-        <div className="form-row">
-          <label htmlFor="category">Категория:</label>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="examples">Примеры</label>
+          <input
+            className="addword-form-modern__input"
+            type="text"
+            id="examples"
+            name="examples"
+            value={formState.examples}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                examples: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="image">Изображение</label>
+          <input
+            className="addword-form-modern__input"
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            onBlur={() => handleBlur("imageFile")}
+            style={
+              touched["imageFile"] && !formState.imageFile
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
+          />
+        </div>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="category">Категория</label>
           <select
+            className="addword-form-modern__select"
             id="category"
             name="category"
             value={formState.category ?? ""}
@@ -210,51 +232,44 @@ function AddNormalWord() {
             ))}
           </select>
         </div>
-        <div className="form-row">
-          <label htmlFor="examples">Примеры:</label>
-          <textarea
-            id="examples"
-            name="examples"
-            value={formState.examples}
-            onChange={(e) =>
-              setFormState((prevState) => ({
-                ...prevState,
-                examples: e.target.value,
-              }))
-            }
-          ></textarea>
-        </div>
-        <h4>Медиафайлы</h4>
-        <div className="form-row">
-          <label htmlFor="image">Изображение:</label>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="video">Видео</label>
           <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            onBlur={() => handleBlur("imageFile")}
-            style={
-              touched["imageFile"] && !formState.imageFile
-                ? { borderColor: "#f0763e", background: "#fff6f3" }
-                : {}
-            }
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="video">Видео:</label>
-          <input
+            className="addword-form-modern__input"
             type="file"
             id="video"
             accept="video/*"
             onChange={handleVideoChange}
           />
         </div>
-        <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
-          Добавить слово
-        </button>{" "}
-        <p>{message}</p>
-      </form>
-    </div>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="dictionary">Словарь</label>
+          <input
+            className="addword-form-modern__input"
+            type="text"
+            id="dictionary"
+            name="dictionary"
+            value={formState.dictionary || ""}
+            onChange={(e) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                dictionary: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <div className="addword-form-modern__row addword-form-modern__row--button">
+          <button
+            className="addword-form-modern__button"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Добавить
+          </button>
+        </div>
+      </div>
+      <p>{message}</p>
+    </form>
   );
 }
 

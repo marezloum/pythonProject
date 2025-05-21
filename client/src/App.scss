@@ -33,7 +33,7 @@ body {
 .container {
   width: 100%;
   margin: 0 auto;
-  max-width: 1600px;
+  // max-width: 1600px;
 }
 .floating-telegram-btn {
   position: fixed;
@@ -230,4 +230,9 @@ body.dark-theme {
       color: #e0e6f0;
     }
   }
+}
+
+
+.w-100 {
+  width: 100% !important;
 }

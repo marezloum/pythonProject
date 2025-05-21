@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import axios from "axios";
+import "./AddCategory.scss";
 type CategoryFormState = {
   name: string;
   imageFile: File | null;
@@ -15,6 +15,11 @@ function AddCategory() {
     imageFile: null,
   });
   const [message, setMessage] = useState("");
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -52,12 +57,12 @@ function AddCategory() {
   };
 
   return (
-    <div className="form">
-      <h3>Категория</h3>
-      <form>
-        <div className="form-row">
-          <label htmlFor="name">Название:</label>
+    <form className="addword-form-modern">
+      <div className="addword-form-modern__flex">
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="name">Название</label>
           <input
+            className="addword-form-modern__input"
             type="text"
             id="name"
             name="name"
@@ -68,26 +73,43 @@ function AddCategory() {
                 name: e.target.value,
               }))
             }
+            onBlur={() => handleBlur("name")}
             required
+            style={
+              touched["name"] && !formState.name
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           />
         </div>
-        <h4>Медиафайлы</h4>
-        <div className="form-row">
-          <label htmlFor="image">Изображение:</label>
+        <div className="addword-form-modern__row">
+          <label className="addword-form-modern__label" htmlFor="image">Изображение</label>
           <input
+            className="addword-form-modern__input"
             type="file"
             id="image"
             accept="image/*"
             onChange={handleImageChange}
+            onBlur={() => handleBlur("imageFile")}
+            style={
+              touched["imageFile"] && !formState.imageFile
+                ? { borderColor: "#f0763e", background: "#fff6f3" }
+                : {}
+            }
           />
         </div>
-        <br />
-        <button className="form-button" type="button" onClick={(e) => handleSubmit()}>
-          Добавить категорию
-        </button>
-        <p>{message}</p>
-      </form>
-    </div>
+        <div className="addword-form-modern__row addword-form-modern__row--button w-100">
+          <button
+            className="addword-form-modern__button"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Добавить
+          </button>
+        </div>
+      </div>
+      <p>{message}</p>
+    </form>
   );
 }
 

@@ -17,7 +17,7 @@ function AddWord() {
           onClick={() => handleSelectForm("normal")}
           className={`form-button ${selectedForm === "normal" ? "active" : ""}`}
         >
-          Добавить обычное слово
+          обычное слово
         </button>
         <button
           onClick={() => handleSelectForm("interactive")}
@@ -25,7 +25,7 @@ function AddWord() {
             selectedForm === "interactive" ? "active" : ""
           }`}
         >
-          Добавить интерактивное слово
+          интерактивное слово
         </button>
         <button
           onClick={() => handleSelectForm("category")}
@@ -33,7 +33,7 @@ function AddWord() {
             selectedForm === "category" ? "active" : ""
           }`}
         >
-          Добавить категорию
+          категорию
         </button>
         <button
           onClick={() => handleSelectForm("interactiveDictionary")}
@@ -41,7 +41,7 @@ function AddWord() {
             selectedForm === "interactiveDictionary" ? "active" : ""
           }`}
         >
-          Добавить интерактивный словарь
+          интерактивный словарь
         </button>
       </div>
       {selectedForm === "normal" && <AddNormalWord />}

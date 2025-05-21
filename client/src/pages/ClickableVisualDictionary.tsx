@@ -40,8 +40,7 @@ function ClickableVisualDictionary() {
     if (selectedVoice) {
       utterance.voice = selectedVoice;
     }
-    utterance.pitch = 0.5; // Adjust pitch
-    utterance.rate = 0.5; // Adjust pitch
+
     window.speechSynthesis.speak(utterance);
   };
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

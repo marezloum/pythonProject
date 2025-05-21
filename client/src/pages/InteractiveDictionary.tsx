@@ -31,7 +31,6 @@ function InteractiveDictionaryPage() {
   const { id: userId, likedItems } = useSelector(
     (state: RootState) => state.user
   );
-  console.log(likedItems);
 
   const fetchDictionary = useCallback(async () => {
     try {
@@ -41,6 +40,7 @@ function InteractiveDictionaryPage() {
           topicId: dictionary.id,
         }
       );
+
       const sortedWords = response.data.sort(
         (a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0)
       );
@@ -144,7 +144,7 @@ function InteractiveDictionaryPage() {
           });
           const likedWord = words.find((w) => w.id === wordId);
           if (likedWord) {
-            const newList = { ...likedItems };
+            const newList = { ...likedItems, interactiveWords: [...likedItems.interactiveWords] };
             newList.interactiveWords.push({
               likeId: response.data.likeId,
               wordId,
